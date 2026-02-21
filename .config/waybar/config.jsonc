@@ -1,0 +1,129 @@
+{
+  "layer": "top",
+  "position": "top",
+  "mode": "dock",
+  "exclusive": true,
+  "passthrough": false,
+  "gtk-layer-shell": true,
+  "height": 0,
+  "modules-left": ["clock", "hyprland/workspaces", "idle_inhibitor"],
+  "modules-center": ["group/center"],
+  "modules-right": ["tray", "group/status", "group/audio"],
+
+  "group/center": {
+    "orientation": "inherit",
+    "modules": ["hyprland/window", "mpris"],
+  },
+
+  "group/status": {
+    "orientation": "inherit",
+    "modules": ["network", "battery"],
+  },
+
+  "group/audio": {
+    "orientation": "inherit",
+    "modules": ["backlight", "wireplumber", "wireplumber#source"],
+  },
+
+  "hyprland/window": {
+    "format": "󰣇  {}",
+  },
+
+  "hyprland/workspaces": {
+    "disable-scroll": true,
+    "all-outputs": true,
+    "on-click": "activate",
+  },
+
+  "tray": {
+    "icon-size": 13,
+    "spacing": 10,
+    "show-passive-items": false,
+  },
+
+  "clock": {
+    "format": "  {:%I:%M %p}",
+    "interval": 1,
+    "rotate": 0,
+    "tooltip-format": " {:%A %B-%d-%Y}",
+  },
+
+  "idle_inhibitor": {
+    "format": "{icon} ",
+    "format-icons": {
+      "activated": "",
+      "deactivated": "",
+    },
+  },
+
+  "mpris": {
+    "format": "{player_icon}  {dynamic}",
+    "dynamic-order": ["title", "artist"],
+    "format-paused": "{status_icon} <i>{dynamic}</i>",
+    "hide-on-empty": true,
+    "dynamic-len": 30,
+    "interval": 2,
+    "player-icons": {
+      "default": "▶",
+      "mpv": "🎵",
+      "spotify": "",
+    },
+    "status-icons": {
+      "paused": "⏸",
+    },
+  },
+
+  "backlight": {
+    "device": "intel_backlight",
+    "tooltip": true,
+    "format": "{icon}",
+    "tooltip-format": "{icon}  {percent}%",
+    "format-icons": ["󰃞", "󰃟", "󰃠"],
+    "on-scroll-up": "brightnessctl set 1%+",
+    "on-scroll-down": "brightnessctl set 1%-",
+  },
+
+  "battery": {
+    "states": {
+      "good": 95,
+      "warning": 30,
+      "critical": 20,
+    },
+    "format": "{icon} {capacity}%",
+    "format-charging": " {capacity}%",
+    "format-plugged": " {capacity}%",
+    "format-alt": "{time} {icon}",
+    "format-icons": ["󰂃", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+  },
+
+  "wireplumber": {
+    "format": "{icon} ",
+    "format-muted": " ",
+    "tooltip-format": "{icon}  {node_name} - {volume}%",
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+    "on-scroll-up": "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+",
+    "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-",
+    "scroll-step": 5,
+    "format-icons": ["", "", ""],
+  },
+
+  "wireplumber#source": {
+    "node-type": "Audio/Source",
+    "format": " ",
+    "format-muted": " ",
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+    "scroll-step": 5,
+  },
+
+  "network": {
+    "tooltip": true,
+    "format-wifi": " ",
+    "format-ethernet": "󰈀 ",
+    "tooltip-format": "Network: <big><b>{essid}</b></big>\nSignal strength: <b>{signaldBm}dBm ({signalStrength}%)</b>\nFrequency: <b>{frequency}MHz</b>\nInterface: <b>{ifname}</b>\nIP: <b>{ipaddr}/{cidr}</b>\nGateway: <b>{gwaddr}</b>\nNetmask: <b>{netmask}</b>",
+    "format-linked": "󰈀 {ifname} (No IP)",
+    "format-disconnected": "󰖪 ",
+    "tooltip-format-disconnected": "Disconnected",
+    "format-alt": "<span foreground='#99ffdd'> {bandwidthDownBytes}</span> <span foreground='#ffcc66'> {bandwidthUpBytes}</span>",
+    "interval": 2,
+  },
+}
