@@ -1,192 +1,261 @@
-/* Global styling */
+/*Colorschemes, there are Gruvbox, Tokyo Night, and Everforest by default. The way it works is whichever colorscheme section is defined last will be used. Here everforest is last, but put any one you want to use as the last one.*/
+
+
+
+/* Tokyo Night */
+@define-color background #1a1b26;
+@define-color background-light #24283b;
+@define-color foreground #c0caf5;
+@define-color black #15161e;
+@define-color red #f7768e;
+@define-color green #9ece6a;
+@define-color yellow #e0af68;
+@define-color blue #7aa2f7;
+@define-color magenta #bb9af7;
+@define-color cyan #7dcfff;
+@define-color white #a9b1d6;
+@define-color orange #ff9e64;
+
+
+/* Everforest Dark Colors */
+@define-color background #2b3339;
+@define-color background-light #323c41;
+@define-color foreground #d3c6aa;
+@define-color black #3c474d;
+@define-color red #e67e80;
+@define-color green #a7c080;
+@define-color yellow #dbbc7f;
+@define-color blue #7fbbb3;
+@define-color magenta #d699b6;
+@define-color cyan #83c092;
+@define-color white #d3c6aa;
+@define-color orange #e69875;
+
+/* Pastel TTY Colors */
+@define-color background #212121;
+@define-color background-light #3a3a3a;
+@define-color foreground #e0e0e0;
+@define-color black #5a5a5a;
+@define-color red #ff9a9e;
+@define-color green #b5e8a9;
+@define-color yellow #ffe6a7;
+@define-color blue #63a4ff;
+@define-color magenta #dda0dd;
+@define-color cyan #a3e8e8;
+@define-color white #ffffff;
+@define-color orange #ff8952;
+
+
+
+/* Gruvbox Dark Colors */
+@define-color background #282828;
+@define-color background-light #3c3836;
+@define-color foreground #ebdbb2;
+@define-color black #32302f;
+@define-color red #cc241d;
+@define-color green #98971a;
+@define-color yellow #d79921;
+@define-color blue #458588;
+@define-color magenta #b16286;
+@define-color cyan #689d6a;
+@define-color white #ebdbb2;
+@define-color orange #d65d0e;
+
+
+
+/* Module-specific colors */
+@define-color workspaces-color @foreground;
+@define-color workspaces-focused-bg @green;
+@define-color workspaces-focused-fg @cyan;
+@define-color workspaces-urgent-bg @red;
+@define-color workspaces-urgent-fg @black;
+
+/* Text and border colors for modules */
+@define-color mode-color @orange;
+@define-color mpd-color @magenta;
+@define-color weather-color @magenta;
+@define-color playerctl-color @magenta;
+@define-color clock-color @blue;
+@define-color cpu-color @green;
+@define-color memory-color @magenta;
+@define-color temperature-color @yellow;
+@define-color temperature-critical-color @red;
+@define-color battery-color @cyan;
+@define-color battery-charging-color @green;
+@define-color battery-warning-color @yellow;
+@define-color battery-critical-color @red;
+@define-color network-color @blue;
+@define-color network-disconnected-color @red;
+@define-color pulseaudio-color @orange;
+@define-color pulseaudio-muted-color @red;
+@define-color backlight-color @yellow;
+@define-color disk-color @cyan;
+@define-color uptime-color @green;
+@define-color updates-color @orange;
+@define-color quote-color @green;
+@define-color idle-inhibitor-color @foreground;
+@define-color idle-inhibitor-active-color @red;
+
 * {
+    /* Base styling for all modules */
     border: none;
     border-radius: 0;
-    font-family:
-        JetBrainsMono Nerd Font,
-        monospace;
-    font-weight: bold;
+    font-family: "Iosevka Nerd Font";
     font-size: 14px;
     min-height: 0;
 }
 
-/* style the tooltips */
-tooltip {
-    border-radius: 10px;
-}
-
-/* Make waybar window invisible */
 window#waybar {
-    background: transparent;
-    color: #cdd6f4;
+    background-color: @background;
+    color: @foreground;
 }
 
-.modules-center {
-    margin-left: 60px;
-    margin-right: 60px;
+
+
+/* Common module styling with border-bottom */
+#mode, #mpd, #custom-weather, #custom-playerctl, #clock, #cpu,
+#memory, #temperature, #battery, #network, #pulseaudio,
+#backlight, #disk, #custom-uptime, #custom-updates, #custom-quote,
+#idle_inhibitor, #tray {
+    padding: 0 10px;
+    margin: 0 2px;
+    border-bottom: 2px solid transparent;
+    background-color: transparent;
 }
 
-/* Module styling */
-#clock,
-#workspaces,
-#idle_inhibitor,
-#center,
-#tray,
-#status,
-#audio {
-    /*background: #1e1e2e;*/
-    background: rgba(30, 30, 46, 0.85);
-    border-radius: 10px;
-    padding: 0px 10px;
-    margin: 3px 0px;
-    margin-top: 5px;
-}
-
-/* Clock style */
-#clock {
-    color: #a6adc8;
-    border-radius: 10px 10px 10px 10px;
-    margin-left: 5px;
-    border-right: 0px;
-}
-
-#clock:hover {
-    background: #cdd6f4;
-    color: #11111b;
-    box-shadow: inset 0 0 0 5px rgba(30, 30, 46, 0.85);
-}
-
-/* The workspaces module style */
-#workspaces {
-    margin-left: 10px;
-    padding-right: 5px;
-    padding-left: 5px;
-}
-
-/* Workspace button style */
+/* Workspaces styling */
 #workspaces button {
-    color: #555869;
-    border-radius: 5px;
-    padding: 0px 5px 0px 5px;
-    margin: 5px 5px 5px 0px;
+    padding: 0 10px;
+    background-color: transparent;
+    color: @workspaces-color;
+    margin: 0;
 }
 
-/* Last workspace button */
-#workspaces button:last-child {
-    margin-right: 0px;
-}
-
-/* The current workspace button style */
-#workspaces button.active {
-    background: #cdd6f4;
-    color: #11111b;
-}
-
-/* I haven't seen this working yet :D */
-#workspaces button.focused {
-    color: #a6adc8;
-    background: #eba0ac;
-}
-
-/* Worskpace button when there's something happening there */
-#workspaces button.urgent {
-    color: #11111b;
-    background: #a6e3a1;
-}
-
-/* The hovered workspace button */
 #workspaces button:hover {
-    background: #cdd6f4;
-    color: #11111b;
+    background: @background-light;
+    box-shadow: inherit;
 }
 
-/* The idle inhibitor button (caffeine mode) */
+#workspaces button.focused {
+    box-shadow: inset 0 -2px @workspaces-focused-fg;
+    color: @workspaces-focused-fg;
+    font-weight: 900;
+}
+
+#workspaces button.urgent {
+    background-color: @workspaces-urgent-bg;
+    color: @workspaces-urgent-fg;
+}
+
+/* Module-specific styling */
+#mode {
+    color: @mode-color;
+    border-bottom-color: @mode-color;
+}
+
+#mpd {
+    color: @mpd-color;
+    border-bottom-color: @mpd-color;
+}
+
+#mpd.disconnected,
+#mpd.stopped {
+    color: @foreground;
+    border-bottom-color: transparent;
+}
+
+#custom-playerctl {
+    color: @playerctl-color;
+    border-bottom-color: @playerctl-color;
+}
+
+#custom-playerctl.Playing {
+    color: @cyan;
+    border-bottom-color: @cyan;
+}
+
+#custom-playerctl.Paused {
+    color: @orange;
+    border-bottom-color: @orange;
+}
+
+#custom-updates {
+    color: @updates-color;
+    border-bottom-color: @updates-color;
+}
+
+#clock {
+    color: @clock-color;
+    border-bottom-color: @clock-color;
+}
+
+#battery {
+    color: @battery-color;
+    border-bottom-color: @battery-color;
+}
+
+#battery.charging, #battery.plugged {
+    color: @battery-charging-color;
+    border-bottom-color: @battery-charging-color;
+}
+
+#battery.warning:not(.charging) {
+    color: @battery-warning-color;
+    border-bottom-color: @battery-warning-color;
+}
+
+#battery.critical:not(.charging) {
+    color: @battery-critical-color;
+    border-bottom-color: @battery-critical-color;
+}
+
+#network {
+    color: @network-color;
+    border-bottom-color: @network-color;
+}
+
+#network.disconnected {
+    color: @network-disconnected-color;
+    border-bottom-color: @network-disconnected-color;
+}
+
+#pulseaudio {
+    color: @pulseaudio-color;
+    border-bottom-color: @pulseaudio-color;
+}
+
+#pulseaudio.muted {
+    color: @pulseaudio-muted-color;
+    border-bottom-color: @pulseaudio-muted-color;
+}
+
+#backlight {
+    color: @backlight-color;
+    border-bottom-color: @backlight-color;
+}
+
 #idle_inhibitor {
-    border-radius: 10px;
-    margin-left: 10px;
+    color: @idle-inhibitor-color;
+    border-bottom-color: transparent;
 }
 
-#idle_inhibitor:hover {
-    background: #cdd6f4;
-    color: #11111b;
-    box-shadow: inset 0 0 0 5px rgba(30, 30, 46, 0.85);
-}
-
-/* Center group */
-#center {
-    padding: 0px 5px;
-    /*margin: 5px 0px;*/
-}
-
-/* Center group modules styling */
-#center #window,
-#center #mpris {
-    background: transparent;
-    border-radius: 5px;
-    padding: 2px 8px;
-    margin: 5px 3px;
-    margin-right: 0px;
-}
-
-/* Individual tweaks */
-#center #window {
-    margin-left: 0px;
-}
-
-#center #mpris:hover {
-    background: #cdd6f4;
-    color: #11111b;
+#idle_inhibitor.activated {
+    color: @idle-inhibitor-active-color;
+    border-bottom-color: @idle-inhibitor-active-color;
 }
 
 #tray {
-    border-radius: 10px;
-    margin-right: 10px;
+    background-color: transparent;
+    padding: 0 10px;
+    margin: 0 2px;
 }
 
-/* Right groups */
-#audio {
-    padding-right: 5px;
-    padding-left: 5px;
-    margin-right: 5px;
+#tray > .passive {
+    -gtk-icon-effect: dim;
 }
 
-#status {
-    padding-right: 5px;
-    padding-left: 5px;
-    margin-right: 10px;
-}
-
-/* Right groups modules styling */
-#status #network,
-#status #battery,
-#audio #backlight,
-#audio #wireplumber,
-#audio #wireplumber.source {
-    background: transparent;
-    border-radius: 5px;
-    padding: 0px 5px 0px 5px;
-    margin: 5px 5px 5px 0px;
-}
-
-/* Right groups modules conditional styling */
-#audio #backlight:hover,
-#audio #wireplumber:hover,
-#audio #wireplumber.source:hover,
-#status #network:hover,
-#status #battery:hover {
-    background: #cdd6f4;
-    color: #11111b;
-}
-
-/* Idividual tweaks */
-#audio #backlight {
-    padding-right: 10px;
-}
-
-#audio #wireplumber.source {
-    margin-right: 0px;
-}
-
-#status #battery {
-    margin-right: 0px;
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    color: @red;
+    border-bottom-color: @red;
 }
