@@ -12,8 +12,8 @@
     "backlight",
     "network",
     "battery",
-    "tray",
     "custom/updates",
+    "tray",
   ],
 
   "sway/workspaces": {
