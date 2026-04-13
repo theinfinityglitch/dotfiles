@@ -1,0 +1,17 @@
+* {
+color: #ebdbb2;
+border: none;
+}
+
+window .background {
+margin: 0px;
+border-radius: 0px;
+border: 1px solid #928374;
+background-color: #282828;
+}
+
+window frame grid combobox box.linked window.popup {
+border-radius: 0px;
+}
+
+

@@ -4,7 +4,7 @@
 
 #!/usr/bin/env bash
 # Configuration
-WALLPAPER_DIR="$HOME/Assets/backgrounds"
+WALLPAPER_DIR="/usr/share/backgrounds"
 CACHE_DIR="$HOME/.cache/wallpaper-selector"
 THUMBNAIL_WIDTH="250"  # Size of thumbnails in pixels (16:9)
 THUMBNAIL_HEIGHT="141"
@@ -87,7 +87,7 @@ if [ -n "$selected" ]; then
     # Ensure a valid wallpaper was found before proceeding
     if [ -n "$original_path" ]; then
         # Set wallpaper using swww with the original file
-        swww img "$original_path" --transition-type random --transition-duration 2
+        awww img "$original_path" --transition-type random --transition-duration 2
 
         # Save the selection for persistence
         echo "$original_path" > "$HOME/.cache/current_wallpaper"

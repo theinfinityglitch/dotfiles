@@ -4,18 +4,22 @@
   "height": 30,
   "spacing": 1,
   "margin": 0,
-  "modules-left": ["clock", "sway/workspaces", "sway/mode", "custom/playerctl"],
+  "modules-left": [
+    "clock",
+    "sway/workspaces",
+    "sway/mode",
+    "custom/playerctl"
+  ],
   "modules-center": [],
   "modules-right": [
-    "pulseaudio",
-    "pulseaudio#microphone",
+    "wireplumber",
+    "wireplumber#source",
     "backlight",
     "network",
     "battery",
     "custom/updates",
-    "tray",
+    "tray"
   ],
-
   "sway/workspaces": {
     "disable-scroll": true,
     "all-outputs": true,
@@ -25,31 +29,27 @@
       "2": [],
       "3": [],
       "4": [],
-      "5": [],
-    },
+      "5": []
+    }
   },
-
   "sway/mode": {
-    "format": "{}",
+    "format": "{}"
   },
-
   "custom/playerctl": {
     "format": "󰐊  {}",
     "return-type": "json",
     "max-length": 40,
     "exec": "playerctl -a metadata --format '{\"text\": \"{{artist}} - {{markup_escape(title)}}\", \"tooltip\": \"{{playerName}} : {{artist}} - {{markup_escape(title)}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F",
     "on-click": "playerctl play-pause",
-    "on-click-right": "playerctl next",
+    "on-click-right": "playerctl next"
   },
-
   "custom/updates": {
     "format": "󰚰   {}",
     "exec": "checkupdates | wc -l",
     "interval": 3600,
-    "on-click": "foot -e sudo pacman -Syu",
-    "signal": 8,
+    "on-click": "kitty -e sudo pacman -Syu",
+    "signal": 8
   },
-
   "clock": {
     "format": "󰥔  {:%H:%M}",
     "format-alt": "󰃮  {:%Y-%m-%d}",
@@ -65,8 +65,8 @@
         "days": "<span color='#e67e80'>{}</span>",
         "weeks": "<span color='#a7c080'><b>W{}</b></span>",
         "weekdays": "<span color='#7fbbb3'><b>{}</b></span>",
-        "today": "<span color='#dbbc7f'><b><u>{}</u></b></span>",
-      },
+        "today": "<span color='#dbbc7f'><b><u>{}</u></b></span>"
+      }
     },
     "actions": {
       "on-click-right": "mode",
@@ -74,22 +74,32 @@
       "on-click-backward": "tz_down",
       "on-scroll-up": "shift_up",
       "on-scroll-down": "shift_down",
-    },
+    }
   },
-
   "battery": {
     "states": {
       "good": 95,
       "warning": 30,
-      "critical": 15,
+      "critical": 15
     },
     "format": "{icon}  {capacity}%",
     "format-charging": "󰂄  {capacity}%",
     "format-plugged": "󰚥  {capacity}%",
     "format-alt": "{icon}  {time}",
-    "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+    "format-icons": [
+      "󰂎",
+      "󰁺",
+      "󰁻",
+      "󰁼",
+      "󰁽",
+      "󰁾",
+      "󰁿",
+      "󰂀",
+      "󰂁",
+      "󰂂",
+      "󰁹"
+    ]
   },
-
   "network": {
     "format-wifi": "󰖩   {essid} ({signalStrength}%)",
     "format-ethernet": "󰈀  {ifname}",
@@ -97,14 +107,11 @@
     "format-disconnected": "󰖪   Disconnected",
     "format-alt": "{ifname}: {ipaddr}/{cidr}",
     "tooltip-format": "{ifname}: {ipaddr}",
-    "on-click": "kitty -e nmtui",
+    "on-click": "kitty -e nmtui"
   },
-
-  "pulseaudio": {
+  "wireplumber": {
     "format": "{icon}  {volume}%",
-    "format-bluetooth": "󰂰  {volume}%",
-    "format-bluetooth-muted": "󰂲  {icon}",
-    "format-muted": "󰝟",
+    "format-muted": "󰝟  Muted",
     "format-icons": {
       "headphone": "󰋋",
       "hands-free": "󰥰",
@@ -112,33 +119,37 @@
       "phone": "󰏲",
       "portable": "󰄝",
       "car": "󰄋",
-      "default": ["󰕿", "󰖀", "󰕾"],
+      "default": [
+        "󰕿",
+        "󰖀",
+        "󰕾"
+      ]
     },
+    "tooltip-format": "{icon}  {node_name} - {volume}%",
     "on-click": "pavucontrol",
-    "on-click-right": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
-    "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +2%",
-    "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -2%",
+    "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+    "on-scroll-up": "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+",
+    "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-",
+    "scroll-step": 5
   },
-
-  "pulseaudio#microphone": {
-    "format": "{format_source}",
-    "format-source": "  {volume}%",
-    "format-source-muted": "  Muted",
-    "on-click": "pamixer --default-source -t",
-    "on-scroll-up": "pamixer --default-source -i 5",
-    "on-scroll-down": "pamixer --default-source -d 5",
-    "scroll-step": 5,
+  "wireplumber#source": {
+    "node-type": "Audio/Source",
+    "format": " {volume}%",
+    "format-muted": " Muted",
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
   },
-
   "backlight": {
     "format": "{icon}   {percent}%",
-    "format-icons": ["󰃞", "󰃟", "󰃠"],
+    "format-icons": [
+      "󰃞",
+      "󰃟",
+      "󰃠"
+    ],
     "on-scroll-up": "brightnessctl set +5%",
-    "on-scroll-down": "brightnessctl set 5%-",
+    "on-scroll-down": "brightnessctl set 5%-"
   },
-
   "tray": {
     "icon-size": 18,
-    "spacing": 5,
-  },
+    "spacing": 5
+  }
 }

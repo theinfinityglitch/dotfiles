@@ -14,7 +14,7 @@ set $up k
 set $right l
 
 # Your preferred terminal emulator
-set $term foot
+set $term kitty
 
 # Your preferred application launcher
 set $menu wofi #wmenu-run
@@ -30,18 +30,24 @@ output * scale 1.25
 # exec_always 'lookandfeeltool -platform offscreen --apply org.kde.breezedark.desktop'
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec mako
-exec swww-daemon
+exec awww-daemon
 exec /home/themaster/.config/sway/scripts/random_wall.sh
 exec waybar
+exec wl-paste -t text --watch clipman store
+# exec sway-audio-idle-inhibit
 
 ### Idle configuration
 #
 # Example configuration:
 #
-# exec swayidle -w \
-#          timeout 300 'swaylock -f -c 000000' \
-#          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-#          before-sleep 'swaylock -f -c 000000'
+exec swayidle -w \
+         timeout 300 'swaylock -f -c 000000' \
+         timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+         before-sleep 'swaylock -f -c 000000'
+
+for_window [class="^.*"] inhibit_idle fullscreen
+for_window [app_id="^.*"] inhibit_idle fullscreen
+
 #
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
@@ -49,6 +55,8 @@ exec waybar
 
 ### Input configuration
 # Read `man 5 sway-input` for more information about this section.
+
+seat seat0 xcursor_theme breeze_cursors 24
 
 input type:touchpad {
     dwt enabled
@@ -59,6 +67,7 @@ input type:touchpad {
 
 input type:keyboard {
     xkb_layout "br"
+    xkb_numlock enabled
 }
 
 ### Key bindings
@@ -84,6 +93,8 @@ input type:keyboard {
     bindsym $mod+p exec wl-color-picker clipboard
 
     bindsym $mod+Escape exec wlogout
+
+    bindsym $mod+c exec "clipman pick -t wofi --err-on-no-selection && wtype -M ctrl -M shift v"
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -247,7 +258,8 @@ client.urgent              #CC241D #CC241D #242424 #CC241D
 # FONT
 font pango:JetBrainsMono Medium 10
 
-gaps outer 5
+gaps outer 1
+gaps inner 3
 
 # smart_borders on
 default_border pixel 2

@@ -1,6 +1,6 @@
 {
     "label" : "lock",
-    "action" : "swaylock",
+    "action" : ". ~/.config/sway/scripts/random_wall_lock.sh && swaylock",
     "text" : "Lock",
     "keybind" : "l"
 }
