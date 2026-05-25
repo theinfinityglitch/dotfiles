@@ -1,0 +1,209 @@
+/* ── rnd — Gruvbox Dark theme ─────────────────────────────────────────────────
+   Place at ~/.config/rnd/style.css to activate.
+   Palette mirrors the Gruvbox entries in your waybar style.css so both
+   applications share the same colour vocabulary.
+   ─────────────────────────────────────────────────────────────────────────── */
+
+/* ── Gruvbox palette ─────────────────────────────────────────────────────────
+   bg0_h  darkest background (hard)    bg1/2/3/4  surface steps
+   fg0    brightest foreground         fg1/2/3/4  body text steps
+   gray   the neutral mid-tone                                               */
+
+@define-color bg0_h  #1d2021;
+@define-color bg0    #282828;
+@define-color bg1    #3c3836;
+@define-color bg2    #504945;
+@define-color bg3    #665c54;
+@define-color bg4    #7c6f64;
+@define-color gray   #928374;
+
+@define-color fg0    #fbf1c7;
+@define-color fg1    #ebdbb2;
+@define-color fg2    #d5c4a1;
+@define-color fg3    #bdae93;
+@define-color fg4    #a89984;
+
+@define-color red       #cc241d;
+@define-color green     #98971a;
+@define-color yellow    #d79921;
+@define-color blue      #458588;
+@define-color magenta   #b16286;
+@define-color cyan      #689d6a;
+@define-color orange    #d65d0e;
+
+/* Bright variants — used for hover/active states */
+@define-color bright-red      #fb4934;
+@define-color bright-green    #b8bb26;
+@define-color bright-yellow   #fabd2f;
+@define-color bright-blue     #83a598;
+@define-color bright-magenta  #d3869b;
+@define-color bright-cyan     #8ec07c;
+@define-color bright-orange   #fe8019;
+
+/* ── Semantic aliases ─────────────────────────────────────────────────────────
+   Change these to retheme without touching the rules below.                */
+
+@define-color notif-bg          @bg1;        /* card surface */
+@define-color notif-bg-hover    @bg2;        /* card on pointer-over */
+@define-color notif-bg-active   @bg0;        /* card on press */
+@define-color notif-border      @bg3;        /* 1 px outline */
+
+@define-color notif-app-name    @fg4;        /* small secondary label */
+@define-color notif-summary     @fg0;        /* primary title */
+@define-color notif-body        @fg3;        /* supporting text */
+
+@define-color notif-close-fg        @gray;
+@define-color notif-close-fg-hover  @fg1;
+@define-color notif-close-bg-hover  @bg2;
+
+@define-color notif-action-bg         @bg2;
+@define-color notif-action-fg         @fg2;
+@define-color notif-action-border     @bg3;
+@define-color notif-action-bg-hover   @blue;       /* accent on hover (= waybar clock) */
+@define-color notif-action-fg-hover   @fg0;
+@define-color notif-action-bg-active  @bright-blue;
+
+@define-color notif-critical-stripe   @bright-red;
+@define-color notif-critical-border   @red;
+
+
+/* ══ Rules ═══════════════════════════════════════════════════════════════════ */
+
+/* ── Card ─────────────────────────────────────────────────────────────────── */
+
+.notification {
+  background-color: @notif-bg;
+  border-radius: 6px;             /* Gruvbox looks better with tighter radius */
+  border: 1px solid @notif-border;
+  padding: 12px;
+  min-width: 300px;
+  max-width: 432px;
+
+  /* Warm-tinted shadow suits Gruvbox better than a neutral black one */
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.50),
+    0 2px 6px  rgba(29, 22, 14, 0.45),
+    0 8px 28px rgba(29, 22, 14, 0.30);
+}
+
+.notification:hover {
+  background-color: @notif-bg-hover;
+  border-color: @bg4;
+}
+
+.notification:active {
+  background-color: @notif-bg-active;
+}
+
+/* ── Urgency ──────────────────────────────────────────────────────────────── */
+
+.notification.urgency-low {
+  opacity: 0.78;
+}
+
+/* Normal: default card, no modifier needed */
+
+.notification.urgency-critical {
+  border-color: @notif-critical-border;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.50),
+    0 2px 6px  rgba(29, 22, 14, 0.45),
+    0 8px 28px rgba(29, 22, 14, 0.30),
+    inset 3px 0 0 0 @notif-critical-stripe;
+}
+
+/* ── App icon ─────────────────────────────────────────────────────────────── */
+
+.notification-icon-container {
+  min-width:  48px;
+  min-height: 48px;
+  width:      48px;
+  height:     48px;
+  border-radius: 4px;   /* sharper corners match the Gruvbox aesthetic */
+  margin-right: 12px;
+}
+
+.notification-icon {
+  min-width:  48px;
+  min-height: 48px;
+}
+
+/* ── Text ─────────────────────────────────────────────────────────────────── */
+
+.notification-text {
+  min-width: 0;
+}
+
+.notification-app-name {
+  font-size:   0.72em;
+  font-weight: 500;
+  color: @notif-app-name;
+  margin-bottom: 1px;
+}
+
+.notification-summary {
+  font-size:   0.90em;
+  font-weight: 600;
+  color: @notif-summary;
+  margin-bottom: 2px;
+}
+
+.notification-body {
+  font-size:   0.85em;
+  font-weight: 400;
+  color: @notif-body;
+  line-height: 1.45;
+}
+
+/* ── Close button ─────────────────────────────────────────────────────────── */
+
+/* .circular applied in code — only override colours and icon size */
+.notification-close {
+  background-color: transparent;
+  color:            @notif-close-fg;
+  box-shadow:       none;
+  margin-left:      4px;
+  -gtk-icon-size:   14px;
+}
+
+.notification-close:hover {
+  background-color: @notif-close-bg-hover;
+  color:            @notif-close-fg-hover;
+}
+
+.notification-close:active {
+  background-color: @bg3;
+}
+
+/* ── Action buttons ───────────────────────────────────────────────────────── */
+
+.notification-actions {
+  margin-top:  10px;
+  column-gap:   6px;
+}
+
+.notification-action {
+  font-size:        0.82em;
+  font-weight:      500;
+  padding:          5px 14px;
+  background-color: @notif-action-bg;
+  color:            @notif-action-fg;
+  border:           1px solid @notif-action-border;
+  border-radius:    4px;
+  box-shadow:       none;
+
+  transition: background-color 100ms ease,
+              border-color     100ms ease,
+              color            100ms ease;
+}
+
+.notification-action:hover {
+  background-color: @notif-action-bg-hover;
+  border-color:     @notif-action-bg-hover;
+  color:            @notif-action-fg-hover;
+}
+
+.notification-action:active {
+  background-color: @notif-action-bg-active;
+  border-color:     @notif-action-bg-active;
+}
