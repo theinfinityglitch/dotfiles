@@ -31,5 +31,12 @@
       "@theinfinityglitch/bluetooth:bluetooth",
       "@theinfinityglitch/wallpaper-selector:wallpaper-selector",
       "clipboard:history"
-   ]
+   ],
+   "providers": {
+      "@theinfinityglitch/wallpapers": {
+         "preferences": {
+            "wallpaperDir": ""
+         }
+      }
+   }
 }
