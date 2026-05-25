@@ -1,6 +1,6 @@
 #!/bin/bash
 # Directory containing wallpapers
-WALLPAPER_DIR="/usr/share/backgrounds"
+WALLPAPER_DIR="$HOME/dotfiles/backgrounds"
 
 # Select a random wallpaper
 IMAGE=$(find "$WALLPAPER_DIR" -type f | shuf -n 1)
