@@ -4,17 +4,18 @@
 
 hl.config({
     input = {
-        kb_layout    = "br",
-        kb_variant   = "abnt2",
-        kb_model     = "",
-        kb_options   = "",
-        kb_rules     = "",
+        kb_layout          = "br",
+        kb_variant         = "abnt2",
+        kb_model           = "",
+        kb_options         = "",
+        kb_rules           = "",
+        numlock_by_default = true,
 
-        follow_mouse = 1,
+        follow_mouse       = 1,
 
-        sensitivity  = 0, -- -1.0 - 1.0, 0 means no modification.
+        sensitivity        = 0, -- -1.0 - 1.0, 0 means no modification.
 
-        touchpad     = {
+        touchpad           = {
             natural_scroll = false,
         },
     },
