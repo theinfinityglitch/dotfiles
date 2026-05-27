@@ -65,6 +65,8 @@ PACMAN_PACKAGES = [
     # Bluetooth
     "bluez",
     "bluez-utils",
+
+    "eza",
 ]
 
 # AUR packages (built with yay / paru)
