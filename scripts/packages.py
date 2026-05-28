@@ -56,6 +56,7 @@ PACMAN_PACKAGES = [
 
     # Fonts
     "nerd-fonts",
+    "ttf-cascadia-code",
 
     # Runtimes / build tools
     "base-devel",
