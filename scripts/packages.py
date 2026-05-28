@@ -87,6 +87,7 @@ PACMAN_PACKAGES = [
 AUR_PACKAGES = [
     "wlogout",               # Logout screen
     "hyprpolkitagent",       # Hyprland polkit agent (/usr/lib/hyprpolkitagent/hyprpolkitagent)
+    "grimblast",
     "vicinae",               # App launcher used as $menu
     "zed",                   # Code editor
     "visual-studio-code-bin",

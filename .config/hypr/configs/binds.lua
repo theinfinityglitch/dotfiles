@@ -54,7 +54,7 @@ hl.bind(mainMod .. " + ALT + Print", hl.dsp.exec_cmd("grimblast --freeze --notif
 -- Lock/logout selector
 
 hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("~/.config/hypr/scripts/random_wall_lock.sh && hyprlock"))
-hl.bind(mainMod .. " + ESCAPE", hl.dsp.exec_cmd("wlogout"))
+hl.bind(mainMod .. " + ESCAPE", hl.dsp.exec_cmd("pidof wlogout || wlogout"))
 hl.bind(mainMod .. " + ALT + M",
     hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
 
