@@ -33,6 +33,8 @@ def symlink_map(dotfiles: Path, home: Path) -> list[tuple[Path, Path]]:
         (dotfiles / ".config" / "gtk-3.0",    config / "gtk-3.0"),
         (dotfiles / ".config" / "gtk-4.0",    config / "gtk-4.0"),
         (dotfiles / ".config" / "kdeglobals", config / "kdeglobals"),
+        (dotfiles / ".config" / "qt5ct",    config / "qt5ct"),
+        (dotfiles / ".config" / "qt6ct",    config / "qt6ct"),
     ]
 
 # Backup helpers
