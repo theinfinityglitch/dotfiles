@@ -25,7 +25,6 @@ PACMAN_PACKAGES = [
     "xdg-desktop-portal-hyprland",  # Screen share / portals
 
     # Status bar
-    "waybar",
     "playerctl",          # Media control for waybar custom/playerctl
 
     # Terminal / shell
@@ -36,12 +35,14 @@ PACMAN_PACKAGES = [
     "firefox",
     "spotify-launcher",
     "steam",
-    "dolphin",            # File manager
+    "dolphin",            # File manage
+    "ark",
     "fastfetch",          # System info
     "gnome-keyring",      # Secret storage
     "eza",
     "awww",
     "imagemagick",
+    "archlinux-xdg-menu",
 
     # GTK / theming
     "gtk4",
@@ -93,7 +94,8 @@ AUR_PACKAGES = [
     "visual-studio-code-bin",
     "qt5ct-kde",
     "qt6ct-kde",
-    "vesktop"
+    "vesktop",
+    "waybar-git"
 ]
 
 # AUR helper detection / bootstrap
