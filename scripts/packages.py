@@ -34,21 +34,33 @@ PACMAN_PACKAGES = [
 
     # Apps
     "firefox",
+    "spotify-launcher",
+    "steam",
     "dolphin",            # File manager
     "fastfetch",          # System info
     "gnome-keyring",      # Secret storage
+    "eza",
+    "awww",
+    "imagemagick",
 
     # GTK / theming
     "gtk4",
     "gtk3",
+    "gtk4-layer-shell",
+    "gnome-themes-extra",
     "nwg-look",           # GTK theme switcher for Wayland
 
-    # rnd dependencies (Rust notification daemon)
-    "gtk4-layer-shell",
+    # QT / theming
+    "breeze",
+    "breeze5",
+
+    # Fonts
+    "nerd-fonts",
 
     # Runtimes / build tools
     "base-devel",
     "git",
+    "github-cli",
     "nodejs",
     "npm",
     "rust",               # Provides cargo; prefer rustup if you want toolchain mgmt
@@ -62,20 +74,24 @@ PACMAN_PACKAGES = [
     "wireplumber",
     "pipewire-pulse",
 
+    # Screen control
+    "brightnessctl",
+
     # Bluetooth
     "bluez",
     "bluez-utils",
-
-    "eza",
 ]
 
 # AUR packages (built with yay / paru)
 AUR_PACKAGES = [
     "wlogout",               # Logout screen
     "hyprpolkitagent",       # Hyprland polkit agent (/usr/lib/hyprpolkitagent/hyprpolkitagent)
-    "awww",                  # Animated wallpaper daemon (awww-daemon)
     "vicinae",               # App launcher used as $menu
     "zed",                   # Code editor
+    "visual-studio-code-bin",
+    "qt5ct-kde",
+    "qt6ct-kde",
+    "vesktop"
 ]
 
 # AUR helper detection / bootstrap
