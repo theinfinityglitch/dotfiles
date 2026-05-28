@@ -11,6 +11,7 @@
     ],
     "modules-center": [],
     "modules-right": [
+        "power-profiles-daemon",
         "wireplumber",
         "wireplumber#source",
         "backlight",
@@ -45,6 +46,16 @@
         "interval": 3600,
         "on-click": "hyprctl dispatch 'hl.dsp.exec_cmd(\"kitty -e sudo pacman -Syu\", { float = true, size = { 1280, 720 } })'",
         "signal": 8
+    },
+    "power-profiles-daemon": {
+        "format": "{icon} ",
+        "tooltip-format": "󰓅   {profile}\n󰒓   {driver}",
+        "format-icons": {
+            "default": "",
+            "performance": "",
+            "balanced": "󰶘",
+            "power-saver": ""
+        }
     },
     "clock": {
         "format": "󰥔  {:%H:%M}",

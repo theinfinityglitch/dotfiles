@@ -34,6 +34,9 @@
 @define-color battery-charging-color @green;
 @define-color battery-warning-color @yellow;
 @define-color battery-critical-color @red;
+@define-color power-profiles-daemon-power-saver-color @green;
+@define-color power-profiles-daemon-balanced-color @yellow;
+@define-color power-profiles-daemon-performance-color @red;
 @define-color network-color @blue;
 @define-color network-disconnected-color @red;
 @define-color pulseaudio-color @orange;
@@ -62,6 +65,7 @@ window#waybar {
 
 
 /* Common module styling with border-bottom */
+#power-profiles-daemon,
 #mode,
 #mpd,
 #custom-weather,
@@ -144,6 +148,21 @@ window#waybar {
 #battery {
     color: @battery-color;
     border-bottom-color: @battery-color;
+}
+
+#power-profiles-daemon.power-saver {
+    color: @power-profiles-daemon-power-saver-color;
+    border-bottom-color: @power-profiles-daemon-power-saver-color;
+}
+
+#power-profiles-daemon.balanced {
+    color: @power-profiles-daemon-balanced-color;
+    border-bottom-color: @power-profiles-daemon-balanced-color;
+}
+
+#power-profiles-daemon.performance {
+    color: @power-profiles-daemon-performance-color;
+    border-bottom-color: @power-profiles-daemon-performance-color;
 }
 
 #battery.charging,
