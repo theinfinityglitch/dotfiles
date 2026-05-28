@@ -1,0 +1,9 @@
+{
+    "custom/updates": {
+        "format": "󰚰  {}",
+        "exec": "checkupdates | wc -l",
+        "interval": 3600,
+        "on-click": "hyprctl dispatch 'hl.dsp.exec_cmd(\"kitty -e sudo pacman -Syu\", { float = true, size = { 1280, 720 } })'",
+        "signal": 8
+    }
+}

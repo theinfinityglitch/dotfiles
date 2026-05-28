@@ -1,0 +1,16 @@
+@import "colors.css";
+
+#power-profiles-daemon.power-saver {
+    color: @power-profiles-daemon-power-saver-color;
+    border-bottom-color: @power-profiles-daemon-power-saver-color;
+}
+
+#power-profiles-daemon.balanced {
+    color: @power-profiles-daemon-balanced-color;
+    border-bottom-color: @power-profiles-daemon-balanced-color;
+}
+
+#power-profiles-daemon.performance {
+    color: @power-profiles-daemon-performance-color;
+    border-bottom-color: @power-profiles-daemon-performance-color;
+}

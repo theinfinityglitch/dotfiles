@@ -1,0 +1,16 @@
+@import "colors.css";
+
+#custom-playerctl {
+    color: @playerctl-color;
+    border-bottom-color: @playerctl-color;
+}
+
+#custom-playerctl.Playing {
+    color: @cyan;
+    border-bottom-color: @cyan;
+}
+
+#custom-playerctl.Paused {
+    color: @orange;
+    border-bottom-color: @orange;
+}
