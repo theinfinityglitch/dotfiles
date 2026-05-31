@@ -1,3 +1,4 @@
 .current_wallpaper
 vicinae_extensions
 __pycache__
+.config/nvim/undodir
