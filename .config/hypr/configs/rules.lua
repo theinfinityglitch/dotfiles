@@ -8,6 +8,12 @@ hl.window_rule({
     opacity = "0.90 0.90"
 })
 
+hl.window_rule({
+    name = "disable-rider-opacity",
+    match = { class = "^(jetbrains-rider)$" },
+    opacity = "1.0"
+})
+
 -- Ignore maximize requests from all apps. You'll probably like this.
 
 hl.window_rule({

@@ -1,9 +1,9 @@
 {
     "network": {
-        "format-wifi": "󰖩  {signalStrength}%",
+        "format-wifi": "󰖩 {signalStrength}%",
         "format-ethernet": "󰈀 {ifname}",
-        "format-linked": "󰈀  {ifname} (No IP)",
-        "format-disconnected": "󰖪   Disconnected",
+        "format-linked": "󰈀 {ifname} (No IP)",
+        "format-disconnected": "󰖪 Disconnected",
         "format-alt": "{ifname}: {ipaddr}/{cidr}",
         "tooltip-format": "{essid} {ifname}: {ipaddr}",
         "on-click-right": "hyprctl dispatch 'hl.dsp.exec_cmd(\"kitty -e nmtui\", { float = true, size = { 1280, 720 } })'"

@@ -43,6 +43,10 @@ PACMAN_PACKAGES = [
     "awww",
     "imagemagick",
     "archlinux-xdg-menu",
+    "wf-recorder",
+    "neovim",
+    "vi",
+    "vim",
 
     # GTK / theming
     "gtk4",
@@ -66,6 +70,9 @@ PACMAN_PACKAGES = [
     "nodejs",
     "npm",
     "rust",               # Provides cargo; prefer rustup if you want toolchain mgmt
+    "lua-language-server",
+    "tree-sitter-cli",
+    "stylua",
 
     # Session / polkit
     "polkit",
@@ -82,6 +89,7 @@ PACMAN_PACKAGES = [
     # Bluetooth
     "bluez",
     "bluez-utils",
+    "bluetui",
 ]
 
 # AUR packages (built with yay / paru)
@@ -89,13 +97,14 @@ AUR_PACKAGES = [
     "wlogout",               # Logout screen
     "hyprpolkitagent",       # Hyprland polkit agent (/usr/lib/hyprpolkitagent/hyprpolkitagent)
     "grimblast",
-    "vicinae",               # App launcher used as $menu
+    "vicinae-bin",           # App launcher used as $menu
     "zed",                   # Code editor
     "visual-studio-code-bin",
     "qt5ct-kde",
     "qt6ct-kde",
-    "vesktop",
-    "waybar-git"
+    "vesktop-bin",
+    "waybar-git",
+    "netcoredbg-bin"
 ]
 
 # AUR helper detection / bootstrap

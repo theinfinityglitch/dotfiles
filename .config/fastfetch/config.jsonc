@@ -12,10 +12,10 @@
   "logo": {
     "type": "kitty",
     "source": "~/.config/fastfetch/potionitem.png",
-    "height": 10,
-    "width": 24,
+    "height": 17,
+    "width": 36,
     "padding": {
-      "top": 4,
+      "top": 0,
       "left": 2
     }
   },

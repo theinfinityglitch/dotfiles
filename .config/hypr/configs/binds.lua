@@ -13,7 +13,7 @@ hl.bind(mainMod .. " + SUPER_L", hl.dsp.exec_cmd(programs.menu .. " toggle"), { 
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(programs.fileManager, { float = true, size = { 1280, 720 } }))
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(programs.browser))
 hl.bind(mainMod .. " + code:31",
-    hl.dsp.exec_cmd(programs.code_editor .. " .config/hypr/", { float = true, size = { 1280, 720 } }))
+    hl.dsp.exec_cmd(programs.code_editor .. " ~/dotfiles", { float = true, size = { 1280, 720 } }))
 hl.bind("code:148",
     hl.dsp.exec_cmd(programs.calculator, { float = true, size = { 1280, 720 } }))
 
