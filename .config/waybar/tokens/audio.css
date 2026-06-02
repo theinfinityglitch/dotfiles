@@ -1,0 +1,11 @@
+@import "colors.css";
+
+#wireplumber {
+  color: @wireplumber-color;
+  border-bottom-color: @wireplumber-color;
+}
+
+#wireplumber.muted {
+  color: @wireplumber-muted-color;
+  border-bottom-color: @wireplumber-muted-color;
+}

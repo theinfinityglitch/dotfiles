@@ -1,11 +1,14 @@
 {
-    "network": {
-        "format-wifi": "󰖩 {signalStrength}%",
-        "format-ethernet": "󰈀 {ifname}",
-        "format-linked": "󰈀 {ifname} (No IP)",
-        "format-disconnected": "󰖪 Disconnected",
-        "format-alt": "{ifname}: {ipaddr}/{cidr}",
-        "tooltip-format": "{essid} {ifname}: {ipaddr}",
-        "on-click-right": "hyprctl dispatch 'hl.dsp.exec_cmd(\"kitty -e nmtui\", { float = true, size = { 1280, 720 } })'"
-    }
+  "network": {
+    "format-wifi": "{icon} {signalStrength}%",
+    "format-ethernet": "󰈀 {ifname}",
+    "format-linked": "󰈀 {ifname} (No IP)",
+    "format-disconnected": "󰖪 Disconnected",
+    "format-alt": "{ifname}: {ipaddr}/{cidr}",
+    "tooltip-format": "{essid} {ifname}: {ipaddr}",
+    "format-icons": {
+      "wifi": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"], // Icons mapping from lowest to highest signal strength
+    },
+    "on-click-right": "hyprctl dispatch 'hl.dsp.exec_cmd(\"kitty -e nmtui\", { float = true, size = { 1280, 720 } })'",
+  },
 }

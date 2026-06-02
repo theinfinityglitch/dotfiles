@@ -10,6 +10,17 @@ return {
         javascriptreact = { 'prettier', stop_after_first = true },
         typescriptreact = { 'prettier', stop_after_first = true },
         css = { 'prettier', stop_after_first = true },
+        json = { 'prettierd', 'prettier', 'jq', stop_after_first = true },
+        jsonc = { 'prettierd', 'prettier', 'jq', stop_after_first = true },
+        zig = { 'zigfmt' },
+      },
+      formatters = {
+        prettier = {
+          prepend_args = { '--trailing-comma', 'none' },
+        },
+        prettierd = {
+          prepend_args = { '--trailing-comma', 'none' },
+        },
       },
     })
 

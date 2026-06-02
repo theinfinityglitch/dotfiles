@@ -1,16 +1,20 @@
 @import "colors.css";
 
-#custom-playerctl {
-    color: @playerctl-color;
-    border-bottom-color: @playerctl-color;
+/* #custom-playerctl { */
+#mpris {
+  color: @playerctl-color;
+  border-bottom-color: @playerctl-color;
 }
 
-#custom-playerctl.Playing {
-    color: @cyan;
-    border-bottom-color: @cyan;
+/* #custom-playerctl.Playing { */
+#mpris.playing {
+  color: @cyan;
+  border-bottom-color: @cyan;
 }
 
-#custom-playerctl.Paused {
-    color: @orange;
-    border-bottom-color: @orange;
+/* #custom-playerctl.Paused { */
+#mpris.paused {
+  color: @orange;
+  border-bottom-color: @orange;
 }
+

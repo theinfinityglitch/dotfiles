@@ -1,0 +1,9 @@
+{
+  "idle_inhibitor": {
+    "format": "{icon}  {status}",
+    "format-icons": {
+      "activated": "",
+      "deactivated": ""
+    }
+  }
+}

@@ -73,6 +73,12 @@ PACMAN_PACKAGES = [
     "lua-language-server",
     "tree-sitter-cli",
     "stylua",
+    "prettier",
+    "vscode-css-languageserver",
+    "vscode-html-languageserver",
+    "eslint-language-server",
+    "vscode-json-languageserver",
+    "typescript-language-server",
 
     # Session / polkit
     "polkit",
@@ -104,7 +110,8 @@ AUR_PACKAGES = [
     "qt6ct-kde",
     "vesktop-bin",
     "waybar-git",
-    "netcoredbg-bin"
+    "netcoredbg-bin",
+    "zls-bin",
 ]
 
 # AUR helper detection / bootstrap

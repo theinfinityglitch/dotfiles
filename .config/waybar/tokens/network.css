@@ -1,0 +1,11 @@
+@import "colors.css";
+
+#network {
+  color: @network-color;
+  border-bottom-color: @network-color;
+}
+
+#network.disconnected {
+  color: @network-disconnected-color;
+  border-bottom-color: @network-disconnected-color;
+}

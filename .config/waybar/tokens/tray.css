@@ -1,0 +1,17 @@
+@import "colors.css";
+
+#tray {
+  background-color: transparent;
+  padding: 0 10px;
+  margin: 0 2px;
+}
+
+#tray > .passive {
+  -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+  -gtk-icon-effect: highlight;
+  color: @red;
+  border-bottom-color: @red;
+}

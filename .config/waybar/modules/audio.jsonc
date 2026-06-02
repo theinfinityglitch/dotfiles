@@ -1,7 +1,7 @@
 {
     "wireplumber": {
         "format": "{icon} {volume}%",
-        "format-muted": "󰝟  Muted",
+        "format-muted": "󰝟 Muted",
         "format-icons": {
             "headphone": "󰋋",
             "hands-free": "󰥰",

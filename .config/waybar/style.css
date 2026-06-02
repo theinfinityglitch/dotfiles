@@ -1,123 +1,47 @@
 @import "tokens/colors.css";
-@import "tokens/workspaces.css";
-@import "tokens/media.css";
-@import "tokens/power-profiles.css";
 
 * {
-    /* Base styling for all modules */
-    border: none;
-    border-radius: 0;
-    font-family: "CaskaydiaCove Nerd Font";
-    font-size: 14px;
-    min-height: 0;
+  /* Base styling for all modules */
+  border: none;
+  border-radius: 0;
+  font-family: "CaskaydiaCove Nerd Font";
+  font-size: 14px;
+  min-height: 0;
 }
 
 window#waybar {
-    background-color: @background;
-    color: @foreground;
+  background-color: @background;
+  color: @foreground;
 }
-
 
 /* Common module styling with border-bottom */
 #power-profiles-daemon,
-#mode,
-#mpd,
-#custom-weather,
-#custom-playerctl,
+#idle_inhibitor,
+/* #custom-playerctl, */
+#mpris,
 #clock,
-#cpu,
 #memory,
-#temperature,
 #battery,
 #network,
 #wireplumber,
 #backlight,
-#disk,
-#custom-uptime,
 #custom-updates,
-#custom-quote,
-#idle_inhibitor,
 #tray {
-    padding: 0 10px;
-    margin: 0 2px;
-    border-bottom: 2px solid transparent;
-    background-color: transparent;
+  padding: 0 10px;
+  margin: 0 2px;
+  border-bottom: 2px solid transparent;
+  background-color: transparent;
 }
 
 /* Module-specific styling */
-#mode {
-    color: @mode-color;
-    border-bottom-color: @mode-color;
-}
-
-#custom-updates {
-    color: @updates-color;
-    border-bottom-color: @updates-color;
-}
-
-#clock {
-    color: @clock-color;
-    border-bottom-color: @clock-color;
-}
-
-#battery {
-    color: @battery-color;
-    border-bottom-color: @battery-color;
-}
-
-#battery.charging,
-#battery.plugged {
-    color: @battery-charging-color;
-    border-bottom-color: @battery-charging-color;
-}
-
-#battery.warning:not(.charging) {
-    color: @battery-warning-color;
-    border-bottom-color: @battery-warning-color;
-}
-
-#battery.critical:not(.charging) {
-    color: @battery-critical-color;
-    border-bottom-color: @battery-critical-color;
-}
-
-#network {
-    color: @network-color;
-    border-bottom-color: @network-color;
-}
-
-#network.disconnected {
-    color: @network-disconnected-color;
-    border-bottom-color: @network-disconnected-color;
-}
-
-#wireplumber {
-    color: @pulseaudio-color;
-    border-bottom-color: @pulseaudio-color;
-}
-
-#wireplumber.muted {
-    color: @pulseaudio-muted-color;
-    border-bottom-color: @pulseaudio-muted-color;
-}
-
-#backlight {
-    color: @backlight-color;
-    border-bottom-color: @backlight-color;
-}
-
-#tray {
-    background-color: transparent;
-    padding: 0 10px;
-    margin: 0 2px;
-}
-
-#tray>.passive {
-    -gtk-icon-effect: dim;
-}
-
-#tray>.needs-attention {
-    -gtk-icon-effect: highlight;
-    color: @red;
-    border-bottom-color: @red;
-}
+@import "tokens/clock.css";
+@import "tokens/workspaces.css";
+@import "tokens/media.css";
+@import "tokens/idle_inhibitor.css";
+@import "tokens/power_profiles.css";
+@import "tokens/audio.css";
+@import "tokens/backlight.css";
+@import "tokens/network.css";
+@import "tokens/battery.css";
+@import "tokens/tray.css";
+@import "tokens/updates.css";

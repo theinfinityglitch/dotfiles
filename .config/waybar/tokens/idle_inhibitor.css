@@ -1,0 +1,16 @@
+@import "colors.css";
+
+#idle_inhibitor {
+  color: @idle-inhibitor-color;
+  border-bottom-color: @idle-inhibitor-color;
+}
+
+#idle_inhibitor.activated {
+  color: @idle-inhibitor-activated-color;
+  border-bottom-color: @idle-inhibitor-activated-color;
+}
+
+#idle_inhibitor.deactivated {
+  color: @idle-inhibitor-deactivated-color;
+  border-bottom-color: @idle-inhibitor-deactivated-color;
+}

@@ -1,4 +1,16 @@
 {
+  "mpris": {
+    "format": "{player_icon} {artist} - {title}",
+    "tooltip-format": "{player}: {artist} - {title}",
+    "max-length": 40,
+    "player-icons": {
+      "default": "▶",
+      "mpv": "🎵",
+      "spotify": "",
+    },
+  },
+
+  /*
     "custom/playerctl": {
         "format": "󰐊 {}",
         "return-type": "json",
@@ -7,4 +19,5 @@
         "on-click": "playerctl play-pause",
         "on-click-right": "playerctl next"
     }
+    */
 }

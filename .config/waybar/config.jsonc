@@ -1,35 +1,38 @@
 {
-    "layer": "top",
-    "position": "bottom",
-    "height": 30,
-    "spacing": 1,
-    "margin": 0,
-    "include": [
-        "modules/clock.jsonc",
-        "modules/workspaces.jsonc",
-        "modules/media.jsonc",
-        "modules/power_profiles.jsonc",
-        "modules/audio.jsonc",
-        "modules/backlight.jsonc",
-        "modules/network.jsonc",
-        "modules/battery.jsonc",
-        "modules/updates.jsonc",
-        "modules/tray.jsonc"
-    ],
-    "modules-left": [
-        "clock",
-        "hyprland/workspaces",
-        "custom/playerctl"
-    ],
-    "modules-center": [],
-    "modules-right": [
-        "power-profiles-daemon",
-        "wireplumber",
-        "wireplumber#source",
-        "backlight",
-        "network",
-        "battery",
-        "custom/updates",
-        "tray"
-    ]
+  "layer": "top",
+  "position": "bottom",
+  "height": 30,
+  "spacing": 1,
+  "margin": 0,
+  "include": [
+    "modules/clock.jsonc",
+    "modules/workspaces.jsonc",
+    "modules/media.jsonc",
+    "modules/idle_inhibitor.jsonc",
+    "modules/power_profiles.jsonc",
+    "modules/audio.jsonc",
+    "modules/backlight.jsonc",
+    "modules/network.jsonc",
+    "modules/battery.jsonc",
+    "modules/updates.jsonc",
+    "modules/tray.jsonc"
+  ],
+  "modules-left": [
+    "clock",
+    "hyprland/workspaces",
+    "mpris"
+    // "custom/playerctl"
+  ],
+  "modules-center": [],
+  "modules-right": [
+    "idle_inhibitor",
+    "power-profiles-daemon",
+    "wireplumber",
+    "wireplumber#source",
+    "backlight",
+    "network",
+    "battery",
+    "custom/updates",
+    "tray"
+  ]
 }

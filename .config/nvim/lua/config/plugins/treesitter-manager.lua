@@ -6,14 +6,8 @@ return {
     config = function()
         require('tree-sitter-manager').setup({
             ensure_installed = {
-                --   'javascript',
-                --   'typescript',
-                --   'tsx',
                 'json',
-                --   'jsdoc',
-                --   'html',
-                --   'css',
-                --   'regex',
+                'css',
                 'python',
                 'lua',
                 'vim',
@@ -21,6 +15,7 @@ return {
                 'c',
                 'cpp',
                 'c_sharp',
+                'zig',
             },
         })
 
