@@ -5,83 +5,83 @@ vim.cmd([[autocmd FileType * set formatoptions-=ro]])
 
 -- Yanking highlight
 vim.api.nvim_create_autocmd('TextYankPost', {
-    desc = 'Highlights text when yanking',
-    group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
-    callback = function()
-        vim.highlight.on_yank()
-    end,
+  desc = 'Highlights text when yanking',
+  group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
+  callback = function()
+    vim.highlight.on_yank()
+  end,
 })
 
 -- Rounded floating windows
 vim.diagnostic.config({
-    float = {
-        border = 'rounded',
-        max_width = 80,
-    },
+  float = {
+    border = 'rounded',
+    max_width = 80,
+  },
 })
 
 -- Close all buffers except the current one
 function CloseAllBuffersExceptCurrent()
-    local current_buf = vim.api.nvim_get_current_buf()
-    local buffers = vim.api.nvim_list_bufs()
+  local current_buf = vim.api.nvim_get_current_buf()
+  local buffers = vim.api.nvim_list_bufs()
 
-    for _, buf in ipairs(buffers) do
-        -- Skip the current buffer
-        if buf ~= current_buf then
-            -- Check if the buffer is loaded and not modified
-            if vim.api.nvim_buf_is_loaded(buf) and not vim.bo.modified then
-                -- Delete the buffer
-                vim.api.nvim_buf_delete(buf, { force = false })
-            end
-        end
+  for _, buf in ipairs(buffers) do
+    -- Skip the current buffer
+    if buf ~= current_buf then
+      -- Check if the buffer is loaded and not modified
+      if vim.api.nvim_buf_is_loaded(buf) and not vim.bo.modified then
+        -- Delete the buffer
+        vim.api.nvim_buf_delete(buf, { force = false })
+      end
     end
+  end
 
-    local has_notify, notify = pcall(require, 'notify')
-    if has_notify then
-        vim.notify = notify
-    end
-    vim.notify('Closed all buffers except current', vim.log.levels.INFO)
+  local has_notify, notify = pcall(require, 'notify')
+  if has_notify then
+    vim.notify = notify
+  end
+  vim.notify('Closed all buffers except current', vim.log.levels.INFO)
 end
 
 vim.api.nvim_create_user_command('BufOnly', function()
-    CloseAllBuffersExceptCurrent()
+  CloseAllBuffersExceptCurrent()
 end, { desc = 'Close all buffers except current' })
 
 vim.keymap.set('n', '<Leader>bo', CloseAllBuffersExceptCurrent, { desc = 'Close all buffers except current' })
 
 -- Trim Microsoft line endings
 function Trim()
-    local save = vim.fn.winsaveview()
-    vim.cmd('keeppatterns %s/\\s\\+$\\|\\r$//e')
-    vim.fn.winrestview(save)
+  local save = vim.fn.winsaveview()
+  vim.cmd('keeppatterns %s/\\s\\+$\\|\\r$//e')
+  vim.fn.winrestview(save)
 
-    local has_notify, notify = pcall(require, 'notify')
-    if has_notify then
-        vim.notify = notify
-    end
-    vim.notify('Trimmed ^M line endings', vim.log.levels.INFO)
+  local has_notify, notify = pcall(require, 'notify')
+  if has_notify then
+    vim.notify = notify
+  end
+  vim.notify('Trimmed ^M line endings', vim.log.levels.INFO)
 end
 
 vim.keymap.set('n', '<Leader>tt', Trim, { desc = 'Trimmed ^M line endings' })
 
 vim.api.nvim_create_user_command('Dotnet', function(opts)
-    local arg = opts.fargs[1]
+  local arg = opts.fargs[1]
 
-    if arg == 'run' then
-        local project_path = vim.fn.expand('%:p:h')
-        local runtime_target = vim.fn.system("dotnet msbuild " .. project_path .. " -getProperty:TargetFramework")
-        local output_path = project_path .. "bin/Debug/" .. runtime_target
-        print(vim.fn.system('dotnet run --project ' .. project_path .. ' --artifacts-path ' .. output_path))
-    end
+  if arg == 'run' then
+    local project_path = vim.fn.expand('%:p:h')
+    local runtime_target = vim.fn.system('dotnet msbuild ' .. project_path .. ' -getProperty:TargetFramework')
+    local output_path = project_path .. 'bin/Debug/' .. runtime_target
+    print(vim.fn.system('dotnet run --project ' .. project_path .. ' --artifacts-path ' .. output_path))
+  end
 
-    if arg == 'build' then
-        print(vim.fn.system('dotnet build'))
-    end
+  if arg == 'build' then
+    print(vim.fn.system('dotnet build'))
+  end
 end, {
-    nargs = 1,
-    complete = function(ArgLead, CmdLine, CursorPos)
-        -- return completion candidates as a list-like table
+  nargs = 1,
+  complete = function(ArgLead, CmdLine, CursorPos)
+    -- return completion candidates as a list-like table
 
-        return { 'run', 'build' }
-    end,
+    return { 'run', 'build' }
+  end,
 })

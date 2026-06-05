@@ -34,7 +34,6 @@ vim.opt.smarttab = true
 vim.opt.expandtab = true
 vim.opt.list = true
 vim.opt.listchars = {
-  eol = '.',
   tab = '>-',
   trail = '~',
   nbsp = '␣',

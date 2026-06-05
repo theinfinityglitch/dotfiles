@@ -34,7 +34,7 @@
 @define-color wireplumber-color @orange;
 @define-color wireplumber-muted-color @red;
 @define-color idle-inhibitor-color @magenta;
-@define-color idle-inhibitor-deactivated-color @red;
+@define-color idle-inhibitor-deactivated-color @orange;
 @define-color idle-inhibitor-activated-color @cyan;
 @define-color backlight-color @yellow;
 @define-color updates-color @orange;
