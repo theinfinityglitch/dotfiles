@@ -14,6 +14,7 @@ return {
         jsonc = { 'prettier', 'jq', stop_after_first = true },
         zig = { 'zigfmt' },
         cs = { 'csharpier' },
+        python = { 'isort', 'black' },
       },
       formatters = {
         prettier = {

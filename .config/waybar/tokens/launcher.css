@@ -1,0 +1,6 @@
+@import "colors.css";
+
+#custom-launcher {
+  color: @clock-color;
+  border-bottom-color: @clock-color;
+}

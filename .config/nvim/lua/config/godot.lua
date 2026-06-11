@@ -50,3 +50,32 @@ end, {
   complete = 'file',
   desc = 'Launch Godot with the current project, registering this Neovim as the server',
 })
+
+local function godot_bridge(cmd)
+  local client = vim.loop.new_tcp()
+  client:connect('127.0.0.1', 6666, function(err)
+    if err then
+      vim.schedule(function()
+        vim.notify(
+          '[Godot] Editor bridge not reachable — is Godot open with the plugin enabled?',
+          vim.log.levels.WARN
+        )
+      end)
+      client:close()
+      return
+    end
+    client:write(cmd, function()
+      client:close()
+    end)
+  end)
+end
+
+vim.api.nvim_create_user_command('GodotPlay', function()
+  godot_bridge('play')
+end, { desc = 'Run main scene in Godot editor' })
+vim.api.nvim_create_user_command('GodotPlayScene', function()
+  godot_bridge('play_scene')
+end, { desc = 'Run current scene in Godot editor' })
+vim.api.nvim_create_user_command('GodotStop', function()
+  godot_bridge('stop')
+end, { desc = 'Stop running scene in Godot editor' })

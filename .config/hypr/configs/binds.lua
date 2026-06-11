@@ -12,6 +12,7 @@ hl.bind(mainMod .. " + Return", hl.dsp.exec_cmd(programs.terminal, { float = tru
 hl.bind(mainMod .. " + SUPER_L", hl.dsp.exec_cmd(programs.menu .. " toggle"), { release = true })
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(programs.fileManager, { float = true, size = { 1280, 720 } }))
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(programs.browser))
+hl.bind(mainMod .. " + V", hl.dsp.exec_cmd(programs.terminal .. " nvim", { float = true, size = { 1280, 720 } }))
 hl.bind(mainMod .. " + code:31", hl.dsp.exec_cmd(config_cmd, { float = true, size = { 1280, 720 } }))
 hl.bind("code:148", hl.dsp.exec_cmd(programs.calculator, { float = true, size = { 1280, 720 } }))
 

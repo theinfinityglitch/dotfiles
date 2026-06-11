@@ -5,6 +5,7 @@
   "spacing": 1,
   "margin": 0,
   "include": [
+    "modules/launcher.jsonc",
     "modules/clock.jsonc",
     "modules/workspaces.jsonc",
     "modules/media.jsonc",
@@ -18,6 +19,7 @@
     "modules/tray.jsonc"
   ],
   "modules-left": [
+    "custom/launcher",
     "clock",
     "hyprland/workspaces",
     "mpris"

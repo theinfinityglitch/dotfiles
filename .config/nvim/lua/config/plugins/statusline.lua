@@ -1,6 +1,6 @@
 return {
   'theinfinityglitch/lualine.nvim',
-  branch = 'forked',
+  dev = true,
   dependencies = { 'nvim-tree/nvim-web-devicons' },
 
   config = function()
@@ -17,7 +17,7 @@ return {
         lualine_c = { { 'filename', path = 1 } },
         lualine_x = { 'diagnostics' },
         lualine_y = {
-          { 'filetype_lsp', show_name = false, lsp_separator = '' },
+          { 'filetype_lsp', show_name = false, lsp_separator = '', lsp_icon = '' },
           --           { 'lsp_status', show_name = false, padding = { left = 0, right = 1 } },
         },
         lualine_z = { 'location' },
