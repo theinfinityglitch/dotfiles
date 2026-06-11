@@ -15,10 +15,18 @@ return {
         zig = { 'zigfmt' },
         cs = { 'csharpier' },
         python = { 'isort', 'black' },
+        xml = { 'xmlstarlet_format' },
       },
       formatters = {
         prettier = {
           prepend_args = { '--trailing-comma', 'none' },
+        },
+        xmlstarlet_format = {
+          command = 'xmlstarlet',
+          args = { 'fo', '--net', '-o', '-s', '2', '-' },
+          stdin = true,
+          ignore_stderr = true,
+          exit_codes = { 0, 1, 3, 210, 224 },
         },
       },
       default_format_opts = {
