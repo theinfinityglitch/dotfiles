@@ -26,7 +26,10 @@
       "system_info": false
    },
    "launcher_window": {
-      "opacity": 1
+      "opacity": 1,
+      "compact_mode": {
+         "enabled": false
+      }
    },
    "favorites": [
       "@theinfinityglitch/notification-center:notifications",

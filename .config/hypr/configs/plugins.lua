@@ -43,7 +43,6 @@
 --     -- hyprbars.no_bar = true
 -- })
 
-
 -- hl.dsp.window.set_prop({ prop = "plugins.hyprbars.no_bar", value = "true" })
 
 -- Enable hyprbars only for floating windows

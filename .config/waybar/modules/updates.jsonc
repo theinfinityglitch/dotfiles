@@ -3,7 +3,7 @@
     "format": "󰚰 {}",
     "exec": "checkupdates | wc -l",
     "interval": 3600,
-    "on-click": "hyprctl dispatch 'hl.dsp.exec_cmd(\"kitty -e paru -Syu\", { float = true, size = { 1280, 720 } })'",
+    "on-click": "kitty -e paru -Syu",
     "signal": 8
   }
 }

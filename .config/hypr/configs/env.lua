@@ -2,11 +2,14 @@
 ---- ENVIRONMENT VARIABLES ----
 -------------------------------
 
-hl.env("XDG_MENU_PREFIX", "arch-")
-hl.env("XCURSOR_SIZE", "24")
-hl.env("HYPRCURSOR_SIZE", "24")
-hl.env("QT_QPA_PLATFORM", "wayland;xcb")
-hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
-hl.env("QT_WAYLAND_DISABLE_WINDOWDECORATION", "1")
-hl.env("QT_AUTO_SCREEN_SCALE_FACTOR", "1")
-hl.env("PROTON_DISCORD_BRIDGE", "1")
+hl.env('XDG_CURRENT_DESKTOP', 'Hyprland')
+hl.env('XDG_MENU_PREFIX', 'arch-')
+hl.env('XCURSOR_SIZE', '24')
+hl.env('HYPRCURSOR_SIZE', '24')
+hl.env('QT_QPA_PLATFORM', 'wayland;xcb')
+hl.env('QT_QPA_PLATFORMTHEME', 'qt6ct')
+-- hl.env('QT_STYLE_OVERRIDE', 'kvantum')
+hl.env('QT_WAYLAND_DISABLE_WINDOWDECORATION', '1')
+hl.env('QT_AUTO_SCREEN_SCALE_FACTOR', '1')
+hl.env('PROTON_DISCORD_BRIDGE', '1')
+hl.env('SDL_VIDEODRIVER', 'wayland,x11')

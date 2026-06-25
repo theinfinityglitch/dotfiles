@@ -7,8 +7,8 @@
     "format-alt": "{ifname}: {ipaddr}/{cidr}",
     "tooltip-format": "{essid} {ifname}: {ipaddr}",
     "format-icons": {
-      "wifi": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"], // Icons mapping from lowest to highest signal strength
+      "wifi": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"] // Icons mapping from lowest to highest signal strength
     },
-    "on-click-right": "hyprctl dispatch 'hl.dsp.exec_cmd(\"kitty -e nmtui\", { float = true, size = { 1280, 720 } })'",
-  },
+    "on-click-right": "kitty -e nmtui"
+  }
 }

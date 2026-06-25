@@ -17,6 +17,11 @@ return {
         'c_sharp',
         'zig',
         'gdscript',
+        'markdown',
+        'markdown_inline',
+        'html',
+        'latex',
+        'yaml',
       },
     })
 

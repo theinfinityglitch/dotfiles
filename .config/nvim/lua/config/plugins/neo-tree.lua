@@ -28,7 +28,7 @@ return {
     },
     keys = {
       -- Toggle Neo-tree with CTRL + b
-      { '<C-b>', '<cmd>Neotree toggle source=last<cr>', desc = 'Neo-tree' },
+      { '<A-b>', '<cmd>Neotree toggle source=last<cr>', desc = 'Neo-tree' },
     },
   },
   {
