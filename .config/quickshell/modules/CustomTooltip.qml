@@ -21,7 +21,12 @@ PopupWindow {
         anchors.centerIn: parent
         text: root.text
         color: Colors.foreground
-        font.pixelSize: 11
+
+        font {
+            pixelSize: 14
+            family: "CaskaydiaCove Nerd Font"
+        }
+
     }
 
 }
