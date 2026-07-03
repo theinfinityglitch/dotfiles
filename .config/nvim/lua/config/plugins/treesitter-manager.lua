@@ -22,20 +22,9 @@ return {
         'html',
         'latex',
         'yaml',
+        'rust',
       },
+      -- highlight = true,
     })
-
-    -- vim.api.nvim_create_autocmd('FileType', {
-    --   pattern = {
-    --     'dart',
-    --     'javascript',
-    --     'javascriptreact',
-    --     'typescript',
-    --     'typescriptreact',
-    --   },
-    --   callback = function()
-    --     vim.treesitter.start()
-    --   end,
-    -- })
   end,
 }

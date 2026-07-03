@@ -4,21 +4,29 @@ local programs = require('configs.programs')
 ---- WINDOWS AND WORKSPACES ----
 --------------------------------
 
-for _, value in pairs(programs.blur_back) do
-  hl.window_rule({
-    name = 'apply-' .. value .. '-blur',
-    match = { class = '^(' .. value .. ')$' },
-    opacity = '0.90 0.90',
-  })
-end
+-- size = { 1472, 868 },
 
-for _, value in pairs(programs.start_floating) do
-  hl.window_rule({
-    name = 'apply-' .. value .. '-floating',
-    match = { class = '^(' .. value .. ')$' },
-    float = true,
-    size = { 1280, 720 },
-  })
+for program, flags in pairs(programs.window_settings) do
+  if program ~= nil and flags ~= nil then
+    for _, flag in pairs(flags) do
+      if flag == 'B' then
+        hl.window_rule({
+          name = 'apply-' .. program .. '-rules',
+          match = { class = '^(' .. program .. ')$' },
+          opacity = '0.90 0.90',
+        })
+      end
+      if flag == 'F' then
+        hl.window_rule({
+          name = 'apply-' .. program .. '-rules',
+          match = { class = '^(' .. program .. ')$' },
+          float = true,
+          center = true,
+          size = { 1280, 720 },
+        })
+      end
+    end
+  end
 end
 
 -- Ignore maximize requests from all apps. You'll probably like this.
@@ -42,4 +50,10 @@ hl.window_rule({
   },
 
   no_focus = true,
+})
+
+hl.layer_rule({
+  name = 'no-anim-for-menu',
+  match = { namespace = 'quickshell:radial-menu' },
+  no_anim = true,
 })

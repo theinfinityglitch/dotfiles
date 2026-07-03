@@ -112,6 +112,7 @@ AUR_PACKAGES = [
     "waybar-git",
     "netcoredbg-bin",
     "zls-bin",
+    "quickshell-git",
 ]
 
 # AUR helper detection / bootstrap

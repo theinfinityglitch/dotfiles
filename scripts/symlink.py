@@ -14,41 +14,60 @@ from datetime import datetime
 from pathlib import Path
 
 from common import (
-    header, info, success, warn, error, die,
-    ask, confirm, dotfiles_dir,
-    BOLD, RESET, CYAN, GREEN, YELLOW, RED, DIM,
+    BOLD,
+    CYAN,
+    DIM,
+    GREEN,
+    RED,
+    RESET,
+    YELLOW,
+    ask,
+    confirm,
+    die,
+    dotfiles_dir,
+    error,
+    header,
+    info,
+    success,
+    warn,
 )
+
 
 def symlink_map(dotfiles: Path, home: Path) -> list[tuple[Path, Path]]:
     config = home / ".config"
     return [
         # ~/.config entries
-        (dotfiles / ".config" / "hypr",       config / "hypr"),
-        (dotfiles / ".config" / "waybar",     config / "waybar"),
-        (dotfiles / ".config" / "rnd",        config / "rnd"),
-        (dotfiles / ".config" / "kitty",      config / "kitty"),
-        (dotfiles / ".config" / "fastfetch",  config / "fastfetch"),
-        (dotfiles / ".config" / "vicinae",    config / "vicinae"),
-        (dotfiles / ".config" / "wlogout",    config / "wlogout"),
-        (dotfiles / ".config" / "gtk-3.0",    config / "gtk-3.0"),
-        (dotfiles / ".config" / "gtk-4.0",    config / "gtk-4.0"),
+        (dotfiles / ".config" / "hypr", config / "hypr"),
+        (dotfiles / ".config" / "waybar", config / "waybar"),
+        (dotfiles / ".config" / "rnd", config / "rnd"),
+        (dotfiles / ".config" / "kitty", config / "kitty"),
+        (dotfiles / ".config" / "fastfetch", config / "fastfetch"),
+        (dotfiles / ".config" / "vicinae", config / "vicinae"),
+        (dotfiles / ".config" / "wlogout", config / "wlogout"),
+        (dotfiles / ".config" / "gtk-3.0", config / "gtk-3.0"),
+        (dotfiles / ".config" / "gtk-4.0", config / "gtk-4.0"),
         (dotfiles / ".config" / "kdeglobals", config / "kdeglobals"),
-        (dotfiles / ".config" / "qt5ct",      config / "qt5ct"),
-        (dotfiles / ".config" / "qt6ct",      config / "qt6ct"),
-        (dotfiles / ".config" / "nvim",       config / "nvim")
+        (dotfiles / ".config" / "qt5ct", config / "qt5ct"),
+        (dotfiles / ".config" / "qt6ct", config / "qt6ct"),
+        (dotfiles / ".config" / "nvim", config / "nvim"),
+        (dotfiles / ".config" / "quickshell", config / "quickshell"),
     ]
+
 
 # Backup helpers
 
 BACKUP_ROOT = Path.home() / ".dotfiles_backups"
 
+
 def backup_dir(name: str) -> Path:
     return BACKUP_ROOT / name
+
 
 def list_backups() -> list[Path]:
     if not BACKUP_ROOT.exists():
         return []
     return sorted(BACKUP_ROOT.iterdir(), key=lambda p: p.stat().st_mtime, reverse=True)
+
 
 def print_backups() -> None:
     backups = list_backups()
@@ -60,6 +79,7 @@ def print_backups() -> None:
         mtime = datetime.fromtimestamp(b.stat().st_mtime).strftime("%Y-%m-%d %H:%M:%S")
         print(f"    {GREEN}{b.name:<30}{RESET} {DIM}{mtime}{RESET}")
     print()
+
 
 def do_backup(targets: list[tuple[Path, Path]], backup_name: str) -> None:
     """Copy each existing target into the backup directory."""
@@ -94,6 +114,7 @@ def do_backup(targets: list[tuple[Path, Path]], backup_name: str) -> None:
 
     success(f"Backup '{backup_name}' created ({backed_up} items) → {dest_root}")
 
+
 def restore_backup(backup_name: str, home: Path) -> None:
     """Restore a backup by copying its contents back to home."""
     src_root = backup_dir(backup_name)
@@ -125,7 +146,9 @@ def restore_backup(backup_name: str, home: Path) -> None:
 
     success(f"Backup '{backup_name}' restored.")
 
+
 # Config identity check
+
 
 def _is_same_config(targets: list[tuple[Path, Path]], dotfiles: Path) -> bool:
     """
@@ -141,6 +164,7 @@ def _is_same_config(targets: list[tuple[Path, Path]], dotfiles: Path) -> bool:
         except Exception:
             return False
     return True
+
 
 def _describe_conflicts(targets: list[tuple[Path, Path]], dotfiles: Path) -> list[str]:
     """Return human-readable descriptions of what would be overwritten."""
@@ -159,7 +183,9 @@ def _describe_conflicts(targets: list[tuple[Path, Path]], dotfiles: Path) -> lis
             lines.append(f"file       {target}")
     return lines
 
+
 # Symlinking
+
 
 def create_symlinks(targets: list[tuple[Path, Path]], force: bool) -> None:
     created = skipped = errors = 0
@@ -173,7 +199,10 @@ def create_symlinks(targets: list[tuple[Path, Path]], force: bool) -> None:
 
         # Remove existing file/dir/symlink if force or it's a wrong symlink
         if target.exists() or target.is_symlink():
-            if target.is_symlink() and Path(os.readlink(target)).resolve() == src.resolve():
+            if (
+                target.is_symlink()
+                and Path(os.readlink(target)).resolve() == src.resolve()
+            ):
                 info(f"Already linked: {target}")
                 skipped += 1
                 continue
@@ -199,17 +228,25 @@ def create_symlinks(targets: list[tuple[Path, Path]], force: bool) -> None:
     )
     print(f"  Symlinks: {summary}")
 
+
 # Entry point
+
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Symlink dotfiles with backup support")
-    parser.add_argument("--skip-backup",   action="store_true", help="Never create a backup")
-    parser.add_argument("--force",         action="store_true", help="Overwrite existing non-symlink targets")
-    parser.add_argument("--list-backups",  action="store_true", help="List available backups and exit")
-    parser.add_argument("--restore",       metavar="NAME",      help="Restore a named backup")
+    parser.add_argument(
+        "--skip-backup", action="store_true", help="Never create a backup"
+    )
+    parser.add_argument(
+        "--force", action="store_true", help="Overwrite existing non-symlink targets"
+    )
+    parser.add_argument(
+        "--list-backups", action="store_true", help="List available backups and exit"
+    )
+    parser.add_argument("--restore", metavar="NAME", help="Restore a named backup")
     args = parser.parse_args()
 
-    home     = Path.home()
+    home = Path.home()
     dotfiles = dotfiles_dir()
 
     # List / restore modes
@@ -231,7 +268,9 @@ def main() -> None:
     # Backup decision
     if not args.skip_backup:
         if _is_same_config(targets, dotfiles):
-            success("All symlinks already point to this dotfiles folder — no backup needed.")
+            success(
+                "All symlinks already point to this dotfiles folder — no backup needed."
+            )
         else:
             conflicts = _describe_conflicts(targets, dotfiles)
             if conflicts:
@@ -255,7 +294,10 @@ def main() -> None:
                     print()
 
     # Symlink
-    create_symlinks(targets, force=args.force or True)  # force=True: backup was already offered
+    create_symlinks(
+        targets, force=args.force or True
+    )  # force=True: backup was already offered
+
 
 if __name__ == "__main__":
     main()

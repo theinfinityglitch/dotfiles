@@ -16,10 +16,18 @@ return {
         cs = { 'csharpier' },
         python = { 'isort', 'black' },
         xml = { 'xmlstarlet_format' },
+        cpp = { 'clang-format' },
+        qml = { 'qmlformat' },
       },
       formatters = {
         prettier = {
           prepend_args = { '--trailing-comma', 'none' },
+        },
+        formatters = {
+          ['clang-format'] = {
+            -- Pass specific fallback styles directly through CLI arguments
+            prepend_args = { "--style='{BasedOnStyle: Google, IndentWidth: 4}'" },
+          },
         },
         xmlstarlet_format = {
           command = 'xmlstarlet',

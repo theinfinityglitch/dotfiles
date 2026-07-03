@@ -10,24 +10,24 @@ programs.menu = 'vicinae'
 programs.colorPicker = 'hyprpicker'
 programs.browser = 'firefox'
 programs.calculator = 'kcalc'
-programs.start_floating = {
-  'org.pulseaudio.pavucontrol',
-  'org.gnome.Nautilus',
-  'org.kde.dolphin',
-  'code',
-  'dev.zed.Zed',
-  'kitty',
-  'Alacritty',
-  'foot',
-  'com.mitchellh.ghostty',
-  'org.freedesktop.impl.portal.desktop.kde',
-}
-programs.blur_back = {
-  'kitty',
-  'Alacritty',
-  'foot',
-  'dev.zed.Zed',
-  'com.mitchellh.ghostty',
+
+-- F -> Float
+-- B -> Blur back
+
+programs.window_settings = {
+  ['org.pulseaudio.pavucontrol'] = { 'F' },
+  ['org.gnome.Nautilus'] = { 'F' },
+  ['org.kde.dolphin'] = { 'F' },
+  ['code'] = { 'F' },
+  ['dev.zed.Zed'] = { 'B', 'F' },
+  ['kitty'] = { 'B', 'F' },
+  ['Alacritty'] = { 'B', 'F' },
+  ['foot'] = { 'B', 'F' },
+  ['com.mitchellh.ghostty'] = { 'B', 'F' },
+  ['org.freedesktop.impl.portal.desktop.kde'] = { 'F' },
+  ['org.godotengine.ProjectManager'] = { 'F' },
+  ['spotify'] = { 'B', 'F' },
+  ['Launcher'] = { 'F' }, -- Seed Laucher: Launcher for Flax Engine
 }
 
 return programs

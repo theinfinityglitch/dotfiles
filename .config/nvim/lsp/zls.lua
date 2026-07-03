@@ -1,5 +1,3 @@
---local lspconfig = require('lspconfig')
-
 return {
   cmd = { 'zls' },
   filetypes = { 'zig', 'zon' },
