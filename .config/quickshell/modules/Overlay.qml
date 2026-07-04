@@ -43,17 +43,6 @@ PanelWindow {
         right: true
     }
 
-    Workspaces {
-        anchors {
-            top: parent.top
-            left: parent.left
-            right: parent.right
-        }
-
-        implicitHeight: 5
-
-    }
-
     Item {
         id: cluster
         anchors.centerIn: parent

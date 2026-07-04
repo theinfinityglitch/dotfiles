@@ -6,8 +6,8 @@ Rectangle {
 
     required property Overlay overlay
 
+    color: Colors.backdrop
     implicitHeight: 5
-    color: Colors.background
 
     MouseArea {
         id: mouse

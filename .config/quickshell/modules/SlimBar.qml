@@ -7,7 +7,7 @@ PanelWindow {
     required property Overlay overlay
 
     WlrLayershell.namespace: "quickshell:slim_bar"
-    implicitHeight: 5
+    implicitHeight: 18
     color: "transparent"
 
     anchors {
