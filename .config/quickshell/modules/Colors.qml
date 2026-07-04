@@ -21,6 +21,7 @@ Singleton {
     readonly property color orange: "#d65d0e"
     // Workspaces
     readonly property color workspaceColor: foreground
+    readonly property color workspaceUrgentColor: red
     readonly property color workspaceFocussedColor: cyan
     readonly property color workspaceEmptyColor: backgroundLight
     // Media player

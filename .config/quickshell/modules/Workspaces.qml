@@ -42,7 +42,7 @@ Rectangle {
 
                 width: 50
                 height: parent.height
-                color: isFocused ? Colors.workspaceFocussedColor : wsRef ? Colors.workspaceColor : Colors.workspaceEmptyColor
+                color: isFocused ? Colors.workspaceFocussedColor : wsRef ? (wsRef.urgent ? Colors.workspaceUrgentColor : Colors.workspaceColor) : Colors.workspaceEmptyColor
 
                 MouseArea {
                     id: mouse
