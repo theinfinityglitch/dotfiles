@@ -1,22 +1,41 @@
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
+import Quickshell.Services.Mpris
+import Quickshell.Widgets
 
 Rectangle {
+    id: root
+
+    required property MprisPlayer player
+    property bool isPlaying: player ? (player.playbackState === MprisPlaybackState.Playing) : false
+
     implicitHeight: 90
-    implicitWidth: 320
+    implicitWidth: 360
     color: Colors.background
 
     Rectangle {
-        implicitHeight: parent.height
+        id: playStateBar
+
+        anchors.left: parent.left
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
         implicitWidth: 5
-        color: MediaInfo.isPlaying ? Colors.mediaPlayerIndicatorPlayingColor : Colors.mediaPlayerIndicatorPausedColor
+        color: root.isPlaying ? Colors.mediaPlayerIndicatorPlayingColor : Colors.mediaPlayerIndicatorPausedColor
     }
 
     RowLayout {
         anchors.fill: parent
         anchors.margins: 10
-        spacing: 6
+        anchors.leftMargin: 10 + playStateBar.width
+        spacing: 10
+
+        IconImage {
+            implicitHeight: parent.implicitHeight
+            implicitWidth: implicitHeight
+            source: root.player ? root.player.trackArtUrl : ""
+            visible: root.player !== null && root.player.trackArtUrl !== ""
+        }
 
         ColumnLayout {
             Layout.fillWidth: true
@@ -25,7 +44,21 @@ Rectangle {
 
             Text {
                 Layout.fillWidth: true
-                text: MediaInfo.activePlayer ? (MediaInfo.activePlayer.trackTitle || "Unknown title") : ""
+                text: root.player ? (root.player.identity || "Unknown player") : ""
+                color: Colors.cyan
+                elide: Text.ElideRight
+
+                font {
+                    pixelSize: 12
+                    bold: true
+                    family: "CaskaydiaCove Nerd Font"
+                }
+
+            }
+
+            Text {
+                Layout.fillWidth: true
+                text: root.player ? (root.player.trackTitle || "Unknown title") : ""
                 color: Colors.foreground
                 elide: Text.ElideRight
 
@@ -39,7 +72,7 @@ Rectangle {
 
             Text {
                 Layout.fillWidth: true
-                text: MediaInfo.activePlayer ? (MediaInfo.activePlayer.trackArtist || "Unknown artist") : ""
+                text: root.player ? (root.player.trackArtist || "Unknown artist") : ""
                 color: Colors.magenta
                 elide: Text.ElideRight
 
@@ -58,12 +91,12 @@ Rectangle {
 
                 Rectangle {
                     height: parent.height
-                    color: MediaInfo.isPlaying ? Colors.mediaPlayerIndicatorPlayingColor : Colors.mediaPlayerIndicatorPausedColor
+                    color: root.isPlaying ? Colors.mediaPlayerIndicatorPlayingColor : Colors.mediaPlayerIndicatorPausedColor
                     width: {
-                        if (!MediaInfo.activePlayer || !MediaInfo.activePlayer.lengthSupported || MediaInfo.activePlayer.length <= 0)
+                        if (!root.player || !root.player.lengthSupported || root.player.length <= 0)
                             return 0;
 
-                        const frac = MediaInfo.activePlayer.position / MediaInfo.activePlayer.length;
+                        const frac = root.player.position / root.player.length;
                         return parent.width * Math.max(0, Math.min(1, frac));
                     }
                 }
@@ -78,7 +111,7 @@ Rectangle {
 
             Text {
                 text: "󰒮"
-                color: MediaInfo.activePlayer && MediaInfo.activePlayer.canGoPrevious ? Colors.foreground : Colors.backgroundLight
+                color: root.player && root.player.canGoPrevious ? Colors.foreground : Colors.backgroundLight
 
                 font {
                     pixelSize: 22
@@ -90,8 +123,8 @@ Rectangle {
                     anchors.margins: -8
                     cursorShape: Qt.PointingHandCursor
                     onClicked: {
-                        if (MediaInfo.activePlayer && MediaInfo.activePlayer.canGoPrevious)
-                            MediaInfo.activePlayer.previous();
+                        if (root.player && root.player.canGoPrevious)
+                            root.player.previous();
 
                     }
                 }
@@ -99,7 +132,7 @@ Rectangle {
             }
 
             Text {
-                text: MediaInfo.activePlayer && MediaInfo.isPlaying ? "󰏤" : "󰐊"
+                text: root.player && root.isPlaying ? "󰏤" : "󰐊"
                 color: Colors.foreground
 
                 font {
@@ -112,8 +145,8 @@ Rectangle {
                     anchors.margins: -8
                     cursorShape: Qt.PointingHandCursor
                     onClicked: {
-                        if (MediaInfo.activePlayer)
-                            MediaInfo.activePlayer.togglePlaying();
+                        if (root.player)
+                            root.player.togglePlaying();
 
                     }
                 }
@@ -122,7 +155,7 @@ Rectangle {
 
             Text {
                 text: "󰒭"
-                color: MediaInfo.activePlayer && MediaInfo.activePlayer.canGoNext ? Colors.foreground : Colors.backgroundLight
+                color: root.player && root.player.canGoNext ? Colors.foreground : Colors.backgroundLight
 
                 font {
                     pixelSize: 22
@@ -134,7 +167,7 @@ Rectangle {
                     anchors.margins: -8
                     cursorShape: Qt.PointingHandCursor
                     onClicked: {
-                        if (MediaInfo.activePlayer && MediaInfo.activePlayer.canGoNext)
+                        if (root.player && root.player.canGoNext)
                             root.player.next();
 
                     }
@@ -144,6 +177,17 @@ Rectangle {
 
         }
 
+    }
+
+    Timer {
+        interval: 1000
+        repeat: true
+        running: root.player !== null && root.isPlaying
+        onTriggered: {
+            if (root.player)
+                root.player.positionChanged();
+
+        }
     }
 
 }

@@ -26,7 +26,7 @@ PanelWindow {
         property bool mediaCardState: false
 
         visible: MediaInfo.activePlayer !== null
-        color: Colors.backgroundLight
+        color: MediaInfo.isPlaying ? Colors.mediaPlayerIndicatorPlayingColor : Colors.mediaPlayerIndicatorPausedColor
         implicitHeight: parent.height
         implicitWidth: 200
         anchors.leftMargin: 2
@@ -46,42 +46,35 @@ PanelWindow {
             }
         }
 
-        Rectangle {
-            height: parent.height
-            color: MediaInfo.isPlaying ? Colors.mediaPlayerIndicatorPlayingColor : Colors.mediaPlayerIndicatorPausedColor
-            width: {
-                if (!MediaInfo.activePlayer || !MediaInfo.activePlayer.lengthSupported || MediaInfo.activePlayer.length <= 0)
-                    return 0;
-
-                const frac = MediaInfo.activePlayer.position / MediaInfo.activePlayer.length;
-                return parent.width * Math.max(0, Math.min(1, frac));
-            }
-        }
-
-        Timer {
-            interval: 1000
-            repeat: true
-            running: MediaInfo.activePlayer !== null && MediaInfo.activePlayer.playbackState === MprisPlaybackState.Playing
-            onTriggered: {
-                if (MediaInfo.activePlayer)
-                    MediaInfo.activePlayer.positionChanged();
-
-            }
-        }
-
         PopupWindow {
-            id: mediaCardTest
+            id: mediaCenter
 
             visible: mediaIndicator.mediaCardState
+            color: "transparent"
             anchor.item: mediaIndicator
             anchor.edges: Edges.Bottom
             anchor.gravity: Edges.Bottom
             anchor.margins.top: 6
-            implicitWidth: mediaCard.implicitWidth
-            implicitHeight: mediaCard.implicitHeight
+            implicitWidth: column.implicitWidth
+            implicitHeight: column.implicitHeight
 
-            MediaCard {
-                id: mediaCard
+            Column {
+                id: column
+
+                spacing: 4
+
+                Repeater {
+                    model: MediaInfo.players
+
+                    delegate: MediaCard {
+                        required property MprisPlayer modelData
+
+                        visible: modelData.dbusName !== "org.mpris.MediaPlayer2.playerctld"
+                        player: modelData
+                    }
+
+                }
+
             }
 
         }

@@ -5,7 +5,7 @@ pragma Singleton
 Singleton {
     id: root
 
-    property var players: Mpris.players.value
+    property var players: Mpris.players //.values
     property MprisPlayer activePlayer: {
         const players = Mpris.players.values;
         for (let i = 0; i < players.length; i++) {
