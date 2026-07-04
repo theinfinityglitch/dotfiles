@@ -27,4 +27,6 @@ Singleton {
     // Media player
     readonly property color mediaPlayerIndicatorPlayingColor: cyan
     readonly property color mediaPlayerIndicatorPausedColor: orange
+    // Overlay
+    readonly property color backdrop: Qt.rgba(0.03, 0.03, 0.03, 0.6)
 }

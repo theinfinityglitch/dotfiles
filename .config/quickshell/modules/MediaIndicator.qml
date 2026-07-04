@@ -6,6 +6,7 @@ Rectangle {
     id: root
 
     property bool mediaCardState: false
+    property bool locked: false
 
     visible: MediaInfo.activePlayer !== null
     color: MediaInfo.isPlaying ? Colors.mediaPlayerIndicatorPlayingColor : Colors.mediaPlayerIndicatorPausedColor
@@ -21,6 +22,7 @@ Rectangle {
     MouseArea {
         id: mouse
 
+        visible: !locked
         anchors.fill: parent
         hoverEnabled: true
         cursorShape: Qt.PointingHandCursor
@@ -39,7 +41,7 @@ Rectangle {
     PopupWindow {
         id: mediaCenter
 
-        visible: root.mediaCardState
+        visible: root.mediaCardState && root.visible
         color: "transparent"
         anchor.item: root
         anchor.edges: Edges.Bottom

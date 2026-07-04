@@ -1,10 +1,14 @@
 import Quickshell
+import Quickshell.Wayland
 
 PanelWindow {
     id: root
 
+    required property Overlay overlay
+
+    WlrLayershell.namespace: "quickshell:slim_bar"
     implicitHeight: 5
-    color: Colors.background
+    color: "transparent"
 
     anchors {
         top: true
@@ -12,11 +16,10 @@ PanelWindow {
         right: true
     }
 
-    Workspaces {
-        anchors.centerIn: parent
-    }
-
-    MediaIndicator {
+    SlimBarContents {
+        anchors.fill: parent
+        visible: !root.overlay.visible
+        overlay: root.overlay
     }
 
 }

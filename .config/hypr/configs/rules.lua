@@ -54,6 +54,6 @@ hl.window_rule({
 
 hl.layer_rule({
   name = 'no-anim-for-menu',
-  match = { namespace = 'quickshell:radial-menu' },
+  match = { namespace = 'quickshell:slim_bar' },
   no_anim = true,
 })
