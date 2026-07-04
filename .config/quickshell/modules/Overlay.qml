@@ -1,6 +1,7 @@
 import QtQuick
 import Quickshell
 import Quickshell.Wayland
+import Quickshell.Services.Mpris
 import Quickshell.Io
 
 PanelWindow {
@@ -42,15 +43,57 @@ PanelWindow {
         right: true
     }
 
-    SlimBarContents {
+    Workspaces {
         anchors {
             top: parent.top
             left: parent.left
             right: parent.right
         }
 
-        overlay: root
-        expandPanels: true
+        implicitHeight: 5
+
+    }
+
+    Item {
+        id: cluster
+        anchors.centerIn: parent
+        width: 1
+        height: 1
+
+        ClockCluster {
+            anchors.centerIn: parent
+        }
+
+    }
+
+    Item {
+        id: mediaCenter
+        implicitWidth: column.implicitWidth
+        implicitHeight: column.implicitHeight
+        anchors.margins: 10
+
+        anchors {
+            bottom: parent.bottom
+            left: parent.left
+        }
+
+        Column {
+            id: column
+
+            spacing: 4
+
+            Repeater {
+                model: MediaInfo.players
+
+                delegate: MediaCard {
+                    required property MprisPlayer modelData
+
+                    player: modelData
+                }
+
+            }
+
+        }
     }
 
 }

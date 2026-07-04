@@ -5,18 +5,6 @@ import Quickshell.Hyprland
 Rectangle {
     id: root
 
-    property var workspaceNumbers: {
-        const nums = new Set([1, 2, 3, 4, 5]);
-        Hyprland.workspaces.values.forEach((w) => {
-            if (w.id > 0)
-                nums.add(w.id);
-
-        });
-        return Array.from(nums).sort((a, b) => {
-            return a - b;
-        });
-    }
-
     implicitWidth: row.implicitWidth
     implicitHeight: parent.height
     color: "transparent"
@@ -29,15 +17,15 @@ Rectangle {
         spacing: 4
 
         Repeater {
-            model: root.workspaceNumbers
+            model: 10
 
             delegate: Rectangle {
                 id: segment
 
                 required property int modelData
-                readonly property bool isFocused: Hyprland.focusedWorkspace && Hyprland.focusedWorkspace.id === modelData
+                readonly property bool isFocused: Hyprland.focusedWorkspace && Hyprland.focusedWorkspace.id === modelData + 1
                 readonly property var wsRef: Hyprland.workspaces.values.find((w) => {
-                    return w.id === modelData;
+                    return w.id === modelData + 1;
                 })
 
                 width: 50
@@ -56,7 +44,7 @@ Rectangle {
                 CustomTooltip {
                     visible: mouse.containsMouse
                     anchorParent: segment
-                    text: "Workspace " + segment.modelData
+                    text: "Workspace " + (segment.modelData + 1)
                 }
 
             }
