@@ -8,7 +8,7 @@ Rectangle {
     id: root
 
     required property MprisPlayer player
-    property bool isPlaying: player ? (player.playbackState === MprisPlaybackState.Playing) : false
+    property bool isPlaying: player ? player.isPlaying : false
 
     implicitHeight: 90
     implicitWidth: 360
@@ -28,7 +28,7 @@ Rectangle {
         anchors.fill: parent
         anchors.margins: 10
         anchors.leftMargin: 10 + playStateBar.width
-        spacing: 10
+        spacing: 6
 
         IconImage {
             implicitHeight: parent.implicitHeight

@@ -5,17 +5,17 @@ pragma Singleton
 Singleton {
     id: root
 
-    property var players: Mpris.players //.values
-    property MprisPlayer activePlayer: {
-        const players = Mpris.players.values;
-        for (let i = 0; i < players.length; i++) {
-            if (players[i].playbackState === MprisPlaybackState.Playing)
-                return players[i];
-
-        }
-        return players.length > 0 ? players[0] : null;
+    readonly property string playerctldDbusName: "org.mpris.MediaPlayer2.playerctld"
+    readonly property var players: Mpris.players.values.filter((p) => {
+        return p.dbusName !== playerctldDbusName;
+    })
+    readonly property MprisPlayer activePlayer: {
+        const playing = players.find((p) => {
+            return p.isPlaying;
+        });
+        return playing ?? (players.length > 0 ? players[0] : null);
     }
-    property bool isPlaying: activePlayer ? (activePlayer.playbackState === MprisPlaybackState.Playing) : false
-    property var formatedArtistName: activePlayer.trackAlbumArtist !== "" ? activePlayer.trackAlbumArtist + " - " : ""
-    property var formatedMediaName: activePlayer.identity + ": " + formatedArtistName + activePlayer.trackTitle
+    readonly property bool isPlaying: activePlayer ? activePlayer.isPlaying : false
+    readonly property string formatedArtistName: activePlayer && activePlayer.trackAlbumArtist !== "" ? activePlayer.trackAlbumArtist + " - " : ""
+    readonly property string formatedMediaName: activePlayer ? (activePlayer.identity || "Unknown player") + ": " + formatedArtistName + (activePlayer.trackTitle || "Unknown title") : "No media playing"
 }
