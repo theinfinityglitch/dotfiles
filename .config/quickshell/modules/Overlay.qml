@@ -69,7 +69,7 @@ PanelWindow {
         Column {
             id: column
 
-            spacing: 4
+            spacing: 10
 
             Repeater {
                 model: MediaInfo.players

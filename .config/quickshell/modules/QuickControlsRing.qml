@@ -19,13 +19,13 @@ Item {
         height: 1
 
         Repeater {
-            model: root.controls
+            model: root.controls.length
 
             delegate: Item {
                 id: slot
 
-                required property var modelData
                 required property int index
+                readonly property var entry: root.controls[index]
                 readonly property real angle: (2 * Math.PI * index / root.controls.length) - Math.PI / 2
 
                 x: root.radius * Math.cos(angle) - root.dialDiameter / 2
@@ -34,26 +34,26 @@ Item {
                 QuickDial {
                     diameter: root.dialDiameter
                     ringThickness: root.dialThickness
-                    icon: slot.modelData.icon
-                    accent: slot.modelData.accent
-                    mode: slot.modelData.mode
-                    value: slot.modelData.value !== undefined ? slot.modelData.value : 0
-                    active: slot.modelData.active !== undefined ? slot.modelData.active : false
-                    muted: slot.modelData.muted !== undefined ? slot.modelData.muted : false
-                    label: slot.modelData.label !== undefined ? slot.modelData.label : ""
+                    icon: slot.entry.icon
+                    accent: slot.entry.accent
+                    mode: slot.entry.mode
+                    value: slot.entry.value !== undefined ? slot.entry.value : 0
+                    active: slot.entry.active !== undefined ? slot.entry.active : false
+                    muted: slot.entry.muted !== undefined ? slot.entry.muted : false
+                    label: slot.entry.label !== undefined ? slot.entry.label : ""
                     onActivated: {
-                        if (slot.modelData.onActivated)
-                            slot.modelData.onActivated();
+                        if (slot.entry.onActivated)
+                            slot.entry.onActivated();
 
                     }
                     onScrolledUp: {
-                        if (slot.modelData.onScrolledUp)
-                            slot.modelData.onScrolledUp();
+                        if (slot.entry.onScrolledUp)
+                            slot.entry.onScrolledUp();
 
                     }
                     onScrolledDown: {
-                        if (slot.modelData.onScrolledDown)
-                            slot.modelData.onScrolledDown();
+                        if (slot.entry.onScrolledDown)
+                            slot.entry.onScrolledDown();
 
                     }
                 }

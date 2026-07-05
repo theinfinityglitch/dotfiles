@@ -20,15 +20,17 @@ Item {
     readonly property int quickControlsRadius: workspaceRingDiameter / 2 + quickControlsGap + dialDiameter / 2
     property PwNode audioSink: Pipewire.defaultAudioSink
     property PwNode audioSource: Pipewire.defaultAudioSource
+    readonly property int audioVolumePercent: audioSink && audioSink.audio ? Math.round(audioSink.audio.volume * 100) : 0
+    readonly property bool audioMuted: !!(audioSink && audioSink.audio && audioSink.audio.muted)
     property bool idleInhibited: false
     readonly property var profileOrder: [PowerProfile.PowerSaver, PowerProfile.Balanced, PowerProfile.Performance]
     readonly property var quickControls: [{
-        "icon": root.audioSink && root.audioSink.audio && root.audioSink.audio.muted ? "󰝟" : "󰕾",
+        "icon": root.audioMuted ? "󰝟" : (root.audioVolumePercent < 25 ? "󰕿" : (root.audioVolumePercent < 75 ? "󰖀" : "󰕾")),
         "mode": "progress",
-        "value": root.audioSink && root.audioSink.audio ? Math.round(root.audioSink.audio.volume * 100) : 0,
-        "muted": !!(root.audioSink && root.audioSink.audio && root.audioSink.audio.muted),
+        "value": root.audioVolumePercent,
+        "muted": root.audioMuted,
         "accent": Colors.orange,
-        "label": root.audioSink && root.audioSink.audio ? (root.audioSink.audio.muted ? "Muted" : "Volume " + Math.round(root.audioSink.audio.volume * 100) + "%") : "Volume",
+        "label": root.audioMuted ? "Muted" : "Volume " + root.audioVolumePercent + "%",
         "onActivated": function() {
             if (root.audioSink && root.audioSink.audio)
                 root.audioSink.audio.muted = !root.audioSink.audio.muted;
@@ -56,7 +58,7 @@ Item {
 
         }
     }, {
-        "icon": "󰃟",
+        "icon": Brightness.percent < 25 ? "󰃞" : (Brightness.percent < 75 ? "󰃟" : "󰃠"),
         "mode": "progress",
         "value": Brightness.percent,
         "accent": Colors.yellow,

@@ -13,6 +13,7 @@ Rectangle {
     implicitHeight: 90
     implicitWidth: 360
     color: Colors.background
+    radius: 5
 
     Rectangle {
         id: playStateBar
@@ -21,6 +22,10 @@ Rectangle {
         anchors.top: parent.top
         anchors.bottom: parent.bottom
         implicitWidth: 5
+        topLeftRadius: 5
+        topRightRadius: 0
+        bottomLeftRadius: 5
+        bottomRightRadius: 0
         color: root.isPlaying ? Colors.mediaPlayerIndicatorPlayingColor : Colors.mediaPlayerIndicatorPausedColor
     }
 
@@ -30,11 +35,19 @@ Rectangle {
         anchors.leftMargin: 10 + playStateBar.width
         spacing: 6
 
-        IconImage {
+        ClippingWrapperRectangle {
+            radius: 5
+            visible: root.player !== null && root.player.trackArtUrl !== ""
             implicitHeight: parent.implicitHeight
             implicitWidth: implicitHeight
-            source: root.player ? root.player.trackArtUrl : ""
-            visible: root.player !== null && root.player.trackArtUrl !== ""
+
+            IconImage {
+                id: mediaIcon
+
+                anchors.fill: parent
+                source: root.player ? root.player.trackArtUrl : ""
+            }
+
         }
 
         ColumnLayout {

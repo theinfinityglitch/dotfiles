@@ -52,8 +52,8 @@ hl.window_rule({
   no_focus = true,
 })
 
--- hl.layer_rule({
---   name = 'no-anim-for-menu',
---   match = { namespace = 'quickshell:slim_bar' },
---   no_anim = true,
--- })
+hl.layer_rule({
+  name = 'menu-blur',
+  match = { namespace = 'quickshell:slim_bar' },
+  blur = true,
+})
