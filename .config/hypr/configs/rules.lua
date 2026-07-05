@@ -56,4 +56,5 @@ hl.layer_rule({
   name = 'menu-blur',
   match = { namespace = 'quickshell:slim_bar' },
   blur = true,
+  no_anim = true,
 })

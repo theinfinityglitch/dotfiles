@@ -7,6 +7,9 @@ Item {
     property real dialDiameter: 58
     property real dialThickness: 5
     property var controls: []
+    property bool open: false
+    property int staggerStep: 28
+    property int growDuration: 220
 
     implicitWidth: radius * 2 + dialDiameter
     implicitHeight: radius * 2 + dialDiameter
@@ -30,6 +33,63 @@ Item {
 
                 x: root.radius * Math.cos(angle) - root.dialDiameter / 2
                 y: root.radius * Math.sin(angle) - root.dialDiameter / 2
+                scale: 0
+                transformOrigin: Item.Center
+                state: root.open ? "open" : "closed"
+
+                states: [
+                    State {
+                        name: "closed"
+
+                        PropertyChanges {
+                            target: slot
+                            scale: 0
+                        }
+
+                    },
+                    State {
+                        name: "open"
+
+                        PropertyChanges {
+                            target: slot
+                            scale: 1
+                        }
+
+                    }
+                ]
+
+                transitions: [
+                    Transition {
+                        from: "closed"
+                        to: "open"
+
+                        SequentialAnimation {
+                            PauseAnimation {
+                                duration: slot.index * root.staggerStep
+                            }
+
+                            NumberAnimation {
+                                property: "scale"
+                                duration: root.growDuration
+                                easing.type: Easing.OutBack
+                                easing.overshoot: 1.7
+                            }
+
+                        }
+
+                    },
+                    Transition {
+                        from: "open"
+                        to: "closed"
+
+                        NumberAnimation {
+                            property: "scale"
+                            duration: 120
+                            easing.type: Easing.InCubic
+                        }
+
+                    }
+                ]
 
                 QuickDial {
                     diameter: root.dialDiameter

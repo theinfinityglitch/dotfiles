@@ -8,18 +8,7 @@ Item {
     property real thickness: 6
     readonly property int percent: BatteryInfo.percent
     readonly property bool charging: BatteryInfo.isCharging
-    readonly property color fillColor: {
-        if (charging)
-            return Colors.green;
-
-        if (root.percent <= 15)
-            return Colors.red;
-
-        if (root.percent <= 40)
-            return Colors.orange;
-
-        return Colors.green;
-    }
+    readonly property color fillColor: BatteryInfo.statusColor
 
     visible: BatteryInfo.isPresent
     implicitWidth: diameter

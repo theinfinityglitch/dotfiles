@@ -31,14 +31,6 @@ Item {
         scale: mouse.containsMouse ? 1.12 : 1
         transformOrigin: Item.Center
 
-        Behavior on scale {
-            NumberAnimation {
-                duration: 120
-                easing.type: Easing.OutCubic
-            }
-
-        }
-
         Shape {
             anchors.fill: parent
             layer.enabled: true
@@ -136,6 +128,14 @@ Item {
 
         }
 
+        Behavior on scale {
+            NumberAnimation {
+                duration: 120
+                easing.type: Easing.OutCubic
+            }
+
+        }
+
     }
 
     MouseArea {
@@ -145,18 +145,14 @@ Item {
         hoverEnabled: true
         cursorShape: Qt.PointingHandCursor
         onClicked: root.activated()
+        onEntered: HoverLabel.show(root)
+        onExited: HoverLabel.hide(root)
         onWheel: (wheelEvt) => {
             if (wheelEvt.angleDelta.y > 0)
                 root.scrolledUp();
             else if (wheelEvt.angleDelta.y < 0)
                 root.scrolledDown();
         }
-    }
-
-    CustomTooltip {
-        visible: mouse.containsMouse && root.label !== ""
-        anchorParent: root
-        text: root.label
     }
 
 }

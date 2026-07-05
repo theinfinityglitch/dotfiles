@@ -11,7 +11,7 @@ Rectangle {
     property bool isPlaying: player ? player.isPlaying : false
 
     implicitHeight: 90
-    implicitWidth: 360
+    implicitWidth: 400
     color: Colors.background
     radius: 5
 
@@ -27,6 +27,14 @@ Rectangle {
         bottomLeftRadius: 5
         bottomRightRadius: 0
         color: root.isPlaying ? Colors.mediaPlayerIndicatorPlayingColor : Colors.mediaPlayerIndicatorPausedColor
+
+        Behavior on color {
+            ColorAnimation {
+                duration: 300
+            }
+
+        }
+
     }
 
     RowLayout {
@@ -38,7 +46,7 @@ Rectangle {
         ClippingWrapperRectangle {
             radius: 5
             visible: root.player !== null && root.player.trackArtUrl !== ""
-            implicitHeight: parent.implicitHeight
+            implicitHeight: root.height - 20
             implicitWidth: implicitHeight
 
             IconImage {
@@ -53,12 +61,12 @@ Rectangle {
         ColumnLayout {
             Layout.fillWidth: true
             Layout.fillHeight: true
-            Layout.alignment: Qt.AlignVCenter
+            spacing: 2
 
             Text {
                 Layout.fillWidth: true
                 text: root.player ? (root.player.identity || "Unknown player") : ""
-                color: Colors.cyan
+                color: Colors.mediaTitleColor
                 elide: Text.ElideRight
 
                 font {
@@ -69,11 +77,10 @@ Rectangle {
 
             }
 
-            Text {
+            MarqueeText {
                 Layout.fillWidth: true
                 text: root.player ? (root.player.trackTitle || "Unknown title") : ""
                 color: Colors.foreground
-                elide: Text.ElideRight
 
                 font {
                     pixelSize: 14
@@ -83,11 +90,10 @@ Rectangle {
 
             }
 
-            Text {
+            MarqueeText {
                 Layout.fillWidth: true
                 text: root.player ? (root.player.trackArtist || "Unknown artist") : ""
-                color: Colors.magenta
-                elide: Text.ElideRight
+                color: Colors.mediaArtistColor
 
                 font {
                     pixelSize: 12
@@ -96,15 +102,21 @@ Rectangle {
 
             }
 
+            Item {
+                Layout.fillHeight: true
+            }
+
             Rectangle {
                 Layout.fillWidth: true
                 Layout.topMargin: 4
                 height: 3
+                radius: 2.5
                 color: Colors.backgroundLight
 
                 Rectangle {
                     height: parent.height
                     color: root.isPlaying ? Colors.mediaPlayerIndicatorPlayingColor : Colors.mediaPlayerIndicatorPausedColor
+                    radius: 2.5
                     width: {
                         if (!root.player || !root.player.lengthSupported || root.player.length <= 0)
                             return 0;
@@ -112,78 +124,182 @@ Rectangle {
                         const frac = root.player.position / root.player.length;
                         return parent.width * Math.max(0, Math.min(1, frac));
                     }
+
+                    Behavior on width {
+                        NumberAnimation {
+                            duration: 300
+                            easing.type: Easing.Linear
+                        }
+
+                    }
+
+                    Behavior on color {
+                        ColorAnimation {
+                            duration: 300
+                        }
+
+                    }
+
                 }
 
             }
 
         }
 
-        RowLayout {
+        Item {
+            id: transportGroup
+
             Layout.alignment: Qt.AlignVCenter
-            spacing: 14
+            implicitWidth: transportRow.implicitWidth + 16
+            implicitHeight: transportRow.implicitHeight
 
-            Text {
-                text: "󰒮"
-                color: root.player && root.player.canGoPrevious ? Colors.foreground : Colors.backgroundLight
+            RowLayout {
+                id: transportRow
 
-                font {
-                    pixelSize: 22
-                    family: "CaskaydiaCove Nerd Font"
-                }
+                anchors.centerIn: parent
+                spacing: 20
 
-                MouseArea {
-                    anchors.fill: parent
-                    anchors.margins: -8
-                    cursorShape: Qt.PointingHandCursor
-                    onClicked: {
-                        if (root.player && root.player.canGoPrevious)
-                            root.player.previous();
+                Text {
+                    id: prevBtn
+
+                    text: "󰒮"
+                    color: root.player && root.player.canGoPrevious ? Colors.foreground : Colors.backgroundLight
+                    scale: prevMouse.containsMouse ? 1.15 : 1
+                    transformOrigin: Item.Center
+
+                    font {
+                        pixelSize: 22
+                        family: "CaskaydiaCove Nerd Font"
+                    }
+
+                    MouseArea {
+                        id: prevMouse
+
+                        anchors.fill: parent
+                        anchors.margins: -12
+                        hoverEnabled: true
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: {
+                            if (root.player && root.player.canGoPrevious)
+                                root.player.previous();
+
+                        }
+                    }
+
+                    CustomTooltip {
+                        visible: root.player && root.player.canGoPrevious && prevMouse.containsMouse
+                        anchorParent: prevBtn
+                        text: "Previous"
+                    }
+
+                    Behavior on scale {
+                        NumberAnimation {
+                            duration: 120
+                            easing.type: Easing.OutCubic
+                        }
 
                     }
-                }
 
-            }
-
-            Text {
-                text: root.player && root.isPlaying ? "󰏤" : "󰐊"
-                color: Colors.foreground
-
-                font {
-                    family: "CaskaydiaCove Nerd Font"
-                    pixelSize: 22
-                }
-
-                MouseArea {
-                    anchors.fill: parent
-                    anchors.margins: -8
-                    cursorShape: Qt.PointingHandCursor
-                    onClicked: {
-                        if (root.player)
-                            root.player.togglePlaying();
+                    Behavior on color {
+                        ColorAnimation {
+                            duration: 150
+                        }
 
                     }
+
                 }
 
-            }
+                Text {
+                    id: playBtn
 
-            Text {
-                text: "󰒭"
-                color: root.player && root.player.canGoNext ? Colors.foreground : Colors.backgroundLight
+                    text: root.player && root.isPlaying ? "󰏤" : "󰐊"
+                    color: Colors.foreground
+                    scale: playMouse.containsMouse ? 1.15 : 1
+                    transformOrigin: Item.Center
 
-                font {
-                    pixelSize: 22
-                    family: "CaskaydiaCove Nerd Font"
-                }
+                    font {
+                        family: "CaskaydiaCove Nerd Font"
+                        pixelSize: 22
+                    }
 
-                MouseArea {
-                    anchors.fill: parent
-                    anchors.margins: -8
-                    cursorShape: Qt.PointingHandCursor
-                    onClicked: {
-                        if (root.player && root.player.canGoNext)
-                            root.player.next();
+                    MouseArea {
+                        id: playMouse
+
+                        anchors.fill: parent
+                        anchors.margins: -12
+                        hoverEnabled: true
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: {
+                            if (root.player)
+                                root.player.togglePlaying();
+
+                        }
+                    }
+
+                    CustomTooltip {
+                        visible: playMouse.containsMouse
+                        anchorParent: playBtn
+                        text: root.player && root.isPlaying ? "Pause" : "Play"
+                    }
+
+                    Behavior on scale {
+                        NumberAnimation {
+                            duration: 120
+                            easing.type: Easing.OutCubic
+                        }
 
                     }
+
+                }
+
+                Text {
+                    id: nextBtn
+
+                    text: "󰒭"
+                    color: root.player && root.player.canGoNext ? Colors.foreground : Colors.backgroundLight
+                    scale: nextMouse.containsMouse ? 1.15 : 1
+                    transformOrigin: Item.Center
+
+                    font {
+                        pixelSize: 22
+                        family: "CaskaydiaCove Nerd Font"
+                    }
+
+                    MouseArea {
+                        id: nextMouse
+
+                        anchors.fill: parent
+                        anchors.margins: -12
+                        hoverEnabled: true
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: {
+                            if (root.player && root.player.canGoNext)
+                                root.player.next();
+
+                        }
+                    }
+
+                    CustomTooltip {
+                        visible: root.player && root.player.canGoNext && nextMouse.containsMouse
+                        anchorParent: nextBtn
+                        text: "Next"
+                    }
+
+                    Behavior on scale {
+                        NumberAnimation {
+                            duration: 120
+                            easing.type: Easing.OutCubic
+                        }
+
+                    }
+
+                    Behavior on color {
+                        ColorAnimation {
+                            duration: 150
+                        }
+
+                    }
+
                 }
 
             }

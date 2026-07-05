@@ -10,21 +10,30 @@ PopupWindow {
     anchor.item: anchorParent
     anchor.edges: Edges.Bottom
     anchor.gravity: Edges.Bottom
-    anchor.margins.top: 6
-    implicitWidth: labelText.implicitWidth + 12
-    implicitHeight: labelText.implicitHeight + 6
-    color: Colors.background
+    anchor.margins.top: 16
+    implicitWidth: labelText.implicitWidth + 24
+    implicitHeight: labelText.implicitHeight + 16
+    color: "transparent"
 
-    Text {
-        id: labelText
+    Rectangle {
+        anchors.fill: parent
+        radius: 10
+        color: Colors.background
+        border.width: 1
+        border.color: Colors.backgroundLight
 
-        anchors.centerIn: parent
-        text: root.text
-        color: Colors.foreground
+        Text {
+            id: labelText
 
-        font {
-            pixelSize: 14
-            family: "CaskaydiaCove Nerd Font"
+            anchors.centerIn: parent
+            text: root.text
+            color: Colors.foreground
+
+            font {
+                pixelSize: 14
+                family: "CaskaydiaCove Nerd Font"
+            }
+
         }
 
     }

@@ -7,12 +7,13 @@ import Quickshell.Services.UPower
 Item {
     id: root
 
+    property bool open: false
     property int clockDiameter: 230
     property int ringThickness: 6
-    property int ringGap: 5
+    property int ringGap: 0 // 5
     readonly property int ringDiameter: clockDiameter + ringGap * 2 + ringThickness
     property int workspaceRingThickness: 8
-    property int workspaceRingGap: 10
+    property int workspaceRingGap: 5 // 10
     readonly property int workspaceRingDiameter: ringDiameter + workspaceRingGap * 2 + workspaceRingThickness
     property int quickControlsGap: 22
     property int dialDiameter: 58
@@ -29,7 +30,7 @@ Item {
         "mode": "progress",
         "value": root.audioVolumePercent,
         "muted": root.audioMuted,
-        "accent": Colors.orange,
+        "accent": Colors.audioColor,
         "label": root.audioMuted ? "Muted" : "Volume " + root.audioVolumePercent + "%",
         "onActivated": function() {
             if (root.audioSink && root.audioSink.audio)
@@ -50,7 +51,7 @@ Item {
         "icon": root.audioSource && root.audioSource.audio && root.audioSource.audio.muted ? "󰍭" : "󰍬",
         "mode": "toggle",
         "active": !!(root.audioSource && root.audioSource.audio && root.audioSource.audio.muted),
-        "accent": Colors.orange,
+        "accent": Colors.audioColor,
         "label": "Microphone " + (root.audioSource && root.audioSource.audio && root.audioSource.audio.muted ? "muted" : "live"),
         "onActivated": function() {
             if (root.audioSource && root.audioSource.audio)
@@ -61,7 +62,7 @@ Item {
         "icon": Brightness.percent < 25 ? "󰃞" : (Brightness.percent < 75 ? "󰃟" : "󰃠"),
         "mode": "progress",
         "value": Brightness.percent,
-        "accent": Colors.yellow,
+        "accent": Colors.backlightColor,
         "label": "Brightness " + Brightness.percent + "%",
         "onScrolledUp": function() {
             Brightness.increase(5);
@@ -70,12 +71,18 @@ Item {
             Brightness.decrease(5);
         }
     }, {
+        "icon": BatteryInfo.isCharging ? "󰂄" : "󰁹",
+        "mode": "progress",
+        "value": BatteryInfo.percent,
+        "accent": BatteryInfo.statusColor,
+        "label": "Battery " + BatteryInfo.percent + "%" + (BatteryInfo.isCharging ? " · Charging" : "")
+    }, {
         "icon": !NetworkInfo.available ? "󰖪" : (NetworkInfo.isWifi ? (NetworkInfo.signalPercent >= 80 ? "󰤨" : NetworkInfo.signalPercent >= 60 ? "󰤥" : NetworkInfo.signalPercent >= 40 ? "󰤢" : NetworkInfo.signalPercent >= 20 ? "󰤟" : "󰤯") : "󰈀"),
         "mode": NetworkInfo.isWifi ? "progress" : "toggle",
         "value": NetworkInfo.isWifi ? NetworkInfo.signalPercent : 0,
         "active": NetworkInfo.available && !NetworkInfo.isWifi,
         "muted": !NetworkInfo.available,
-        "accent": Colors.blue,
+        "accent": Colors.networkColor,
         "label": !NetworkInfo.available ? "Disconnected" : (NetworkInfo.connectionName || NetworkInfo.ifname) + (NetworkInfo.isWifi ? " · " + NetworkInfo.signalPercent + "%" : "") + " · ↓" + NetworkInfo.formatSpeed(NetworkInfo.downKBps) + " ↑" + NetworkInfo.formatSpeed(NetworkInfo.upKBps),
         "onActivated": function() {
             Quickshell.execDetached(["kitty", "-e", "nmtui"]);
@@ -84,7 +91,7 @@ Item {
         "icon": root.profileIcon(PowerProfiles.profile),
         "mode": "toggle",
         "active": true,
-        "accent": PowerProfiles.profile === PowerProfile.Performance ? Colors.red : (PowerProfiles.profile === PowerProfile.PowerSaver ? Colors.green : Colors.yellow),
+        "accent": PowerProfiles.profile === PowerProfile.Performance ? Colors.powerPerformanceColor : (PowerProfiles.profile === PowerProfile.PowerSaver ? Colors.powerSaverColor : Colors.powerBalancedColor),
         "label": "Power: " + root.profileName(PowerProfiles.profile),
         "onActivated": function() {
             root.cyclePowerProfile();
@@ -93,7 +100,7 @@ Item {
         "icon": root.idleInhibited ? "󰈈" : "󰈉",
         "mode": "toggle",
         "active": root.idleInhibited,
-        "accent": Colors.magenta,
+        "accent": root.idleInhibited ? Colors.idleInhibitorActivatedColor : Colors.idleInhibitorDeactivatedColor,
         "label": root.idleInhibited ? "Stay awake: ON" : "Stay awake: OFF",
         "onActivated": function() {
             root.toggleIdleInhibit();
@@ -102,7 +109,7 @@ Item {
         "icon": "󰚰",
         "mode": "toggle",
         "active": Updates.count > 0,
-        "accent": Colors.green,
+        "accent": Colors.updatesColor,
         "label": Updates.count > 0 ? Updates.count + " updates" : "Up to date",
         "onActivated": function() {
             if (!updatesLaunchProc.running)
@@ -167,6 +174,7 @@ Item {
     }
 
     BatteryRing {
+        visible: false
         anchors.centerIn: parent
         diameter: root.ringDiameter
         thickness: root.ringThickness
@@ -176,6 +184,7 @@ Item {
         anchors.centerIn: parent
         diameter: root.workspaceRingDiameter
         thickness: root.workspaceRingThickness
+        open: root.open
     }
 
     QuickControlsRing {
@@ -184,11 +193,19 @@ Item {
         dialDiameter: root.dialDiameter
         dialThickness: root.dialThickness
         controls: root.quickControls
+        open: root.open
     }
 
     ClockCenter {
         anchors.centerIn: parent
         diameter: root.clockDiameter
+        open: root.open
+    }
+
+    ClusterTooltip {
+        anchors.top: parent.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.topMargin: 16
     }
 
 }

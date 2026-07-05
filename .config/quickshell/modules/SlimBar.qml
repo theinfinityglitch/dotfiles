@@ -18,8 +18,7 @@ PanelWindow {
 
     SlimBarContents {
         anchors.fill: parent
-        visible: !root.overlay.visible
-        overlay: root.overlay
+        hidden: root.overlay.menuOpen
     }
 
 }

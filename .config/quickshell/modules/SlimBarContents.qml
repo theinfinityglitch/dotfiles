@@ -4,22 +4,35 @@ import Quickshell
 Rectangle {
     id: root
 
-    required property Overlay overlay
+    property bool hidden: false
 
     color: Colors.backdrop
     implicitHeight: 5
-
-    MouseArea {
-        id: mouse
-
-        anchors.fill: parent
-        hoverEnabled: true
-        cursorShape: Qt.PointingHandCursor
-        onClicked: root.overlay.toggleMenu()
-    }
+    opacity: root.hidden ? 0 : 1
 
     Workspaces {
         anchors.centerIn: parent
+    }
+
+    Behavior on opacity {
+        NumberAnimation {
+            duration: 200
+            easing.type: Easing.OutCubic
+        }
+
+    }
+
+    transform: Translate {
+        y: root.hidden ? -root.height : 0
+
+        Behavior on y {
+            NumberAnimation {
+                duration: 200
+                easing.type: Easing.OutCubic
+            }
+
+        }
+
     }
 
 }

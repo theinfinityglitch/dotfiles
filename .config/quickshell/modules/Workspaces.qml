@@ -1,6 +1,5 @@
 import QtQuick
 import Quickshell
-import Quickshell.Hyprland
 
 Rectangle {
     id: root
@@ -16,22 +15,22 @@ Rectangle {
         spacing: 6
 
         Repeater {
-            model: 10
+            model: WorkspaceInfo.count
 
             delegate: Rectangle {
                 id: segment
 
-                required property int modelData
-                readonly property int wsId: modelData + 1
-                readonly property bool isFocused: Hyprland.focusedWorkspace && Hyprland.focusedWorkspace.id === wsId
-                readonly property var wsRef: Hyprland.workspaces.values.find((w) => {
-                    return w.id === wsId;
-                })
+                required property int index
 
-                width: isFocused ? 52 : 26
+                readonly property int wsId: index + 1
+                readonly property bool focused: WorkspaceInfo.isFocused(wsId)
+                readonly property bool urgent: WorkspaceInfo.isUrgent(wsId)
+                readonly property bool occupied: WorkspaceInfo.isOccupied(wsId)
+
+                width: focused ? 52 : 26
                 height: 10
                 radius: 5
-                color: isFocused ? Colors.workspaceFocussedColor : wsRef ? (wsRef.urgent ? Colors.workspaceUrgentColor : Colors.workspaceColor) : Colors.workspaceEmptyColor
+                color: focused ? Colors.workspaceFocussedColor : urgent ? Colors.workspaceUrgentColor : occupied ? Colors.workspaceColor : Colors.workspaceEmptyColor
 
                 MouseArea {
                     id: mouse
@@ -39,13 +38,13 @@ Rectangle {
                     anchors.fill: parent
                     hoverEnabled: true
                     cursorShape: Qt.PointingHandCursor
-                    onClicked: Hyprland.dispatch("hl.dsp.focus({ workspace = " + wsId + " })")
+                    onClicked: WorkspaceInfo.focus(segment.wsId)
                 }
 
                 CustomTooltip {
                     visible: mouse.containsMouse
                     anchorParent: segment
-                    text: "Workspace " + wsId
+                    text: "Workspace " + segment.wsId
                 }
 
                 Behavior on width {
