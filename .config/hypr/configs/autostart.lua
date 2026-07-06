@@ -9,12 +9,9 @@ hl.on('hyprland.start', function()
   hl.exec_cmd(
     'sleep 1 && killall -e xdg-desktop-portal-hyprland && killall -e xdg-desktop-portal-wlr && killall xdg-desktop-portal && /usr/lib/xdg-desktop-portal-hyprland & sleep 2 && /usr/lib/xdg-desktop-portal &'
   )
-  hl.exec_cmd('systemctl --user start rnd')
-  -- hl.exec_cmd("rnd")
   hl.exec_cmd('awww-daemon')
   hl.exec_cmd('vicinae server --open')
   hl.exec_cmd('quickshell')
-  -- hl.exec_cmd('waybar')
   hl.exec_cmd('source ~/.config/hypr/scripts/random_wall.sh')
   hl.exec_cmd('hypridle')
   hl.exec_cmd('hyprpm reload -n')

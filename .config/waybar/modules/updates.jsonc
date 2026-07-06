@@ -1,9 +1,0 @@
-{
-  "custom/updates": {
-    "format": "󰚰 {}",
-    "exec": "checkupdates | wc -l",
-    "interval": 3600,
-    "on-click": "kitty -e paru -Syu",
-    "signal": 8
-  }
-}

@@ -1,6 +1,0 @@
-@import "colors.css";
-
-#clock {
-  color: @clock-color;
-  border-bottom-color: @clock-color;
-}

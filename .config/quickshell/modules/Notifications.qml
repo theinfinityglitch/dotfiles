@@ -1,4 +1,5 @@
 import Quickshell
+import Quickshell.Io
 import Quickshell.Services.Notifications
 pragma Singleton
 
@@ -8,6 +9,7 @@ Singleton {
     property alias trackedNotifications: server.trackedNotifications
     property int historyLimit: 50
     property var history: []
+    readonly property string iconCacheDir: Quickshell.cacheDir + "/notif-icons"
 
     function urgencyColor(urgency) {
         if (urgency === NotificationUrgency.Critical)
@@ -39,8 +41,35 @@ Singleton {
         root.history = next;
     }
 
+    function updateHistoryImage(id, path) {
+        const idx = root.history.findIndex((e) => {
+            return e.id === id && e.image === "";
+        });
+        if (idx === -1)
+            return ;
+
+        const next = root.history.slice();
+        next[idx] = Object.assign({
+        }, next[idx], {
+            "image": path
+        });
+        root.history = next;
+    }
+
     function clearHistory() {
         root.history = [];
+        cleanupProc.running = true;
+    }
+
+    Process {
+        command: ["mkdir", "-p", root.iconCacheDir]
+        running: true
+    }
+
+    Process {
+        id: cleanupProc
+
+        command: ["sh", "-c", "rm -f -- \"" + root.iconCacheDir + "\"/*.png"]
     }
 
     NotificationServer {

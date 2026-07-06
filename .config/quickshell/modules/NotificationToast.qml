@@ -10,6 +10,7 @@ Item {
     property bool revealed: false
     property bool dismissing: false
     property bool hovered: false
+    property bool iconCached: false
     property string closeReason: "dismiss"
     readonly property color accent: Notifications.urgencyColor(notification.urgency)
     readonly property bool isCritical: notification.urgency === NotificationUrgency.Critical
@@ -29,6 +30,28 @@ Item {
             return icon;
 
         return Quickshell.iconPath(icon, "");
+    }
+
+    function cacheIconIfNeeded() {
+        if (root.iconCached)
+            return ;
+
+        if (appIcon.status !== Image.Ready)
+            return ;
+
+        if (appIcon.width <= 0 || appIcon.height <= 0)
+            return ;
+
+        if (!root.resolvedIconSource.startsWith("image://qsimage/"))
+            return ;
+
+        root.iconCached = true;
+        const target = Notifications.iconCacheDir + "/" + root.notification.id + "-" + Date.now() + ".png";
+        appIcon.grabToImage((result) => {
+            if (result && result.saveToFile(target))
+                Notifications.updateHistoryImage(root.notification.id, "file://" + target);
+
+        });
     }
 
     function requestClose(reason) {
@@ -135,6 +158,9 @@ Item {
                         anchors.fill: parent
                         source: root.resolvedIconSource
                         visible: status === Image.Ready
+                        onStatusChanged: root.cacheIconIfNeeded()
+                        onWidthChanged: root.cacheIconIfNeeded()
+                        onHeightChanged: root.cacheIconIfNeeded()
                     }
 
                     Text {
@@ -230,10 +256,6 @@ Item {
                             id: actionButton
 
                             required property var modelData
-                            // Captured via a binding rather than referenced
-                            // directly inside onClicked - ids from the enclosing
-                            // file don't reliably resolve from imperative code
-                            // inside a dynamically-created Repeater delegate.
                             property var toastRoot: root
 
                             width: actionLabel.implicitWidth + 16

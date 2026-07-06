@@ -1,6 +1,0 @@
-@import "colors.css";
-
-#backlight {
-  color: @backlight-color;
-  border-bottom-color: @backlight-color;
-}

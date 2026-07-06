@@ -1,6 +1,0 @@
-@import "colors.css";
-
-#custom-updates {
-  color: @updates-color;
-  border-bottom-color: @updates-color;
-}
