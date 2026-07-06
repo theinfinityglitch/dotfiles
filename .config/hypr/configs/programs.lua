@@ -5,7 +5,7 @@
 local programs = {}
 
 programs.terminal = 'kitty'
-programs.fileManager = 'dolphin'
+programs.fileManager = 'nautilus'
 programs.menu = 'vicinae'
 programs.colorPicker = 'hyprpicker'
 programs.browser = 'firefox'

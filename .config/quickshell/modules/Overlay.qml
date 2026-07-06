@@ -155,6 +155,23 @@ PanelWindow {
             }
         }
 
+        Item {
+            id: notificationCenterHost
+
+            anchors {
+                bottom: parent.bottom
+                right: parent.right
+                margins: 10
+            }
+            implicitWidth: notificationCenter.implicitWidth
+            implicitHeight: notificationCenter.implicitHeight
+
+            NotificationCenter {
+                id: notificationCenter
+            }
+
+        }
+
     }
 
 }

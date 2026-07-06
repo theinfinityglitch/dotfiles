@@ -13,4 +13,7 @@ ShellRoot {
         overlay: overlay
     }
 
+    Modules.NotificationPopup {
+    }
+
 }

@@ -52,6 +52,10 @@ Singleton {
     readonly property color backlightColor: yellow
     // Updates
     readonly property color updatesColor: green
+    // Notifications
+    readonly property color notificationColor: blue
+    readonly property color notificationLowColor: backgroundLight
+    readonly property color notificationCriticalColor: red
     // Shell chrome
     readonly property color backdrop: Qt.rgba(0.03, 0.03, 0.03, 0.6)
 }
