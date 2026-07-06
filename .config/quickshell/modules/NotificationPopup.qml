@@ -44,4 +44,8 @@ PanelWindow {
 
     }
 
+    mask: Region {
+        item: column
+    }
+
 }
