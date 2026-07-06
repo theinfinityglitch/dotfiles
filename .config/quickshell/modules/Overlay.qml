@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Controls
 import Quickshell
 import Quickshell.Wayland
 import Quickshell.Services.Mpris
@@ -24,6 +25,7 @@ PanelWindow {
         id: hideTimer
 
         interval: root.fadeDuration
+        onTriggered: OverlayPages.reset()
     }
 
     onMenuOpenChanged: {
@@ -46,7 +48,22 @@ PanelWindow {
 
     Shortcut {
         sequence: "Escape"
-        onActivated: root.closeMenu()
+        onActivated: {
+            if (OverlayPages.currentIndex !== 0)
+                OverlayPages.goToIndex(0);
+            else
+                root.closeMenu();
+        }
+    }
+
+    Shortcut {
+        sequence: "Left"
+        onActivated: OverlayPages.previous()
+    }
+
+    Shortcut {
+        sequence: "Right"
+        onActivated: OverlayPages.next()
     }
 
     WlrLayershell.namespace: "quickshell:slim_bar"
@@ -87,87 +104,215 @@ PanelWindow {
 
             anchors.fill: parent
             onClicked: root.closeMenu()
+            onWheel: (wheel) => {
+                const isPreciseScroll = wheel.pixelDelta.x !== 0 || wheel.pixelDelta.y !== 0;
+                if (isPreciseScroll)
+                    return;
+
+                if (wheel.angleDelta.y > 0)
+                    OverlayPages.previous();
+                else if (wheel.angleDelta.y < 0)
+                    OverlayPages.next();
+            }
         }
 
-        Item {
-            id: trayHost
+        SwipeView {
+            id: pager
 
-            anchors.horizontalCenter: parent.horizontalCenter
-            implicitWidth: tray.implicitWidth
-            implicitHeight: tray.implicitHeight
-
-            y: {
-                const clusterBottom = (content.height / 2) + (clockCluster.implicitHeight / 2);
-                const midpoint = (clusterBottom + content.height) / 2;
-                return midpoint - (implicitHeight / 2);
+            anchors.fill: parent
+            anchors.bottomMargin: OverlayPages.count > 1 ? 32 : 0
+            interactive: true
+            background: Item {
             }
 
-            Tray {
-                id: tray
+            onCurrentIndexChanged: OverlayPages.goToIndex(currentIndex)
 
-                parentWindow: root
+            Connections {
+                function onCurrentChanged() {
+                    if (pager.currentIndex !== OverlayPages.currentIndex)
+                        pager.currentIndex = OverlayPages.currentIndex;
+
+                }
+
+                target: OverlayPages
             }
 
-        }
+            Item {
+                id: homePage
 
-        Item {
-            id: cluster
-            anchors.centerIn: parent
-            width: 1
-            height: 1
+                Item {
+                    id: trayHost
 
-            ClockCluster {
-                id: clockCluster
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    implicitWidth: tray.implicitWidth
+                    implicitHeight: tray.implicitHeight
 
-                anchors.centerIn: parent
-                open: root.menuOpen
-            }
+                    y: {
+                        const clusterBottom = (homePage.height / 2) + (clockCluster.implicitHeight / 2);
+                        const midpoint = (clusterBottom + homePage.height) / 2;
+                        return midpoint - (implicitHeight / 2);
+                    }
 
-        }
+                    Tray {
+                        id: tray
 
-        Item {
-            id: mediaCenter
-            implicitWidth: column.implicitWidth
-            implicitHeight: column.implicitHeight
-            anchors.margins: 10
+                        parentWindow: root
+                    }
 
-            anchors {
-                bottom: parent.bottom
-                left: parent.left
-            }
+                }
 
-            Column {
-                id: column
+                Item {
+                    id: cluster
+                    anchors.centerIn: parent
+                    width: 1
+                    height: 1
 
-                spacing: 10
+                    ClockCluster {
+                        id: clockCluster
 
-                Repeater {
-                    model: MediaInfo.players
+                        anchors.centerIn: parent
+                        open: root.menuOpen
+                    }
 
-                    delegate: MediaCard {
-                        required property MprisPlayer modelData
+                }
 
-                        player: modelData
+                Item {
+                    id: mediaCenter
+                    implicitWidth: mediaColumn.implicitWidth
+                    implicitHeight: mediaColumn.implicitHeight
+
+                    anchors {
+                        bottom: parent.bottom
+                        left: parent.left
+                        margins: 10
+                    }
+
+                    Column {
+                        id: mediaColumn
+
+                        spacing: 10
+
+                        Repeater {
+                            model: MediaInfo.players
+
+                            delegate: MediaCard {
+                                required property MprisPlayer modelData
+
+                                player: modelData
+                            }
+
+                        }
+
+                    }
+
+                }
+
+                Item {
+                    id: notificationCenterHost
+
+                    anchors {
+                        bottom: parent.bottom
+                        right: parent.right
+                        margins: 10
+                    }
+                    implicitWidth: notificationCenter.implicitWidth
+                    implicitHeight: notificationCenter.implicitHeight
+
+                    NotificationCenter {
+                        id: notificationCenter
                     }
 
                 }
 
             }
+
+            Item {
+                id: systemPage
+
+                Column {
+                    anchors.centerIn: parent
+                    spacing: 10
+
+                    Text {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        text: "󰍛"
+                        color: Colors.foreground
+                        opacity: 0.7
+
+                        font {
+                            pixelSize: 48
+                            family: "CaskaydiaCove Nerd Font"
+                        }
+
+                    }
+
+                    Text {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        text: "System page - coming soon"
+                        color: Colors.foreground
+                        opacity: 0.6
+
+                        font {
+                            pixelSize: 14
+                            family: "CaskaydiaCove Nerd Font"
+                        }
+
+                    }
+
+                }
+
+            }
+
         }
 
-        Item {
-            id: notificationCenterHost
+        Row {
+            id: pageDots
 
             anchors {
+                horizontalCenter: parent.horizontalCenter
                 bottom: parent.bottom
-                right: parent.right
-                margins: 10
+                bottomMargin: 16
             }
-            implicitWidth: notificationCenter.implicitWidth
-            implicitHeight: notificationCenter.implicitHeight
+            spacing: 8
+            visible: OverlayPages.count > 1
 
-            NotificationCenter {
-                id: notificationCenter
+            Repeater {
+                model: OverlayPages.count
+
+                delegate: Rectangle {
+                    id: dot
+
+                    required property int index
+
+                    width: index === pager.currentIndex ? 22 : 8
+                    height: 8
+                    radius: 4
+                    color: index === pager.currentIndex ? Colors.foreground : Colors.backgroundLight
+
+                    Behavior on width {
+                        NumberAnimation {
+                            duration: 200
+                            easing.type: Easing.OutCubic
+                        }
+
+                    }
+
+                    Behavior on color {
+                        ColorAnimation {
+                            duration: 200
+                        }
+
+                    }
+
+                    MouseArea {
+                        anchors.fill: parent
+                        anchors.margins: -6
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: OverlayPages.goToIndex(dot.index)
+                    }
+
+                }
+
             }
 
         }
