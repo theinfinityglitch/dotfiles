@@ -7,8 +7,10 @@ Rectangle {
     property int collapsedCount: 3
     property int maxExpandedHeight: 320
     property bool expanded: false
+    property int clockTick: 0
 
     function timeAgo(ms) {
+        void root.clockTick;
         const diff = Math.max(0, Date.now() - ms);
         const mins = Math.floor(diff / 60000);
         if (mins < 1)
@@ -30,6 +32,13 @@ Rectangle {
     radius: 10
     border.width: 1
     border.color: Colors.backgroundLight
+
+    Timer {
+        interval: 30000
+        running: true
+        repeat: true
+        onTriggered: root.clockTick++
+    }
 
     ColumnLayout {
         id: contentColumn
