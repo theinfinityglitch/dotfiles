@@ -26,7 +26,6 @@ Rectangle {
 
     implicitWidth: 340
     implicitHeight: contentColumn.implicitHeight + 24
-    visible: Notifications.history.length > 0
     color: Colors.background
     radius: 10
     border.width: 1
@@ -142,6 +141,20 @@ Rectangle {
                     onClicked: root.expanded = !root.expanded
                 }
 
+            }
+
+        }
+
+        Text {
+            Layout.fillWidth: true
+            text: "No notifications yet"
+            color: Colors.foreground
+            opacity: 0.6
+            visible: Notifications.history.length === 0
+
+            font {
+                pixelSize: 12
+                family: "CaskaydiaCove Nerd Font"
             }
 
         }
