@@ -493,27 +493,7 @@ PanelWindow {
     Component {
         id: networkScreenComponent
 
-        SettingsScreen {
-            title: "Network"
-
-            Column {
-                anchors.fill: parent
-                spacing: 10
-
-                Text {
-                    text: "Network settings - coming soon"
-                    color: Colors.foreground
-                    opacity: 0.6
-
-                    font {
-                        pixelSize: 14
-                        family: "CaskaydiaCove Nerd Font"
-                    }
-
-                }
-
-            }
-
+        WifiScreen {
         }
 
     }

@@ -9,7 +9,6 @@ local mainMod = 'SUPER' -- Sets "Windows" key as main modifier
 -- Fast launch apps
 
 hl.bind(mainMod .. ' + Return', hl.dsp.exec_cmd(programs.terminal))
--- hl.bind(mainMod .. ' + SUPER_L', hl.dsp.exec_cmd(programs.menu .. ' toggle'), { release = true })
 hl.bind(mainMod .. ' + R', hl.dsp.exec_cmd(programs.menu .. ' toggle'), { release = true })
 hl.bind(mainMod .. ' + SUPER_L', hl.dsp.exec_cmd('qs ipc call overlay toggle'), { release = true })
 hl.bind(mainMod .. ' + E', hl.dsp.exec_cmd(programs.fileManager))
@@ -20,8 +19,7 @@ hl.bind('code:148', hl.dsp.exec_cmd(programs.calculator, { float = true, size = 
 
 -- Restart components
 
-hl.bind('CTRL + Escape', hl.dsp.exec_cmd('killall waybar || waybar'))
--- hl.bind(mainMod .. ' + R', hl.dsp.exec_cmd('hyprctl reload'))
+hl.bind('CTRL + Escape', hl.dsp.exec_cmd('killall quickshell || quickshell'))
 
 -- Utilities
 
