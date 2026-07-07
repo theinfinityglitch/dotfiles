@@ -10,7 +10,7 @@ Rectangle {
     required property MprisPlayer player
     property bool isPlaying: player ? player.isPlaying : false
 
-    implicitHeight: 90
+    implicitHeight: 100
     implicitWidth: 400
     color: Colors.background
     radius: 5

@@ -56,6 +56,12 @@ Singleton {
     readonly property color notificationColor: blue
     readonly property color notificationLowColor: backgroundLight
     readonly property color notificationCriticalColor: red
+    // System monitor
+    readonly property color systemCpuColor: blue
+    readonly property color systemMemColor: magenta
+    readonly property color systemDiskColor: yellow
+    readonly property color systemSwapColor: orange
+    readonly property color systemGpuColor: green
     // Shell chrome
     readonly property color backdrop: Qt.rgba(0.03, 0.03, 0.03, 0.6)
 }

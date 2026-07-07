@@ -13,6 +13,7 @@ Item {
     property bool active: false // used when mode is "toggle"
     property bool muted: false // collapses the arc regardless of mode
     property string label: ""
+    property int fontSize: 18
     readonly property real sweepAngle: root.muted ? 0 : (root.mode === "progress" ? (root.value / 100) * 360 : (root.active ? 360 : 0))
     readonly property color ringColor: root.muted ? Colors.backgroundLight : root.accent
     readonly property bool dimmed: root.muted || (root.mode === "toggle" && !root.active)
@@ -113,7 +114,7 @@ Item {
                 color: root.accent
 
                 font {
-                    pixelSize: 18
+                    pixelSize: fontSize
                     family: "CaskaydiaCove Nerd Font"
                 }
 

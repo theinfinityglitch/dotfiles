@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Controls
+import QtQuick.Layouts
 import Quickshell
 import Quickshell.Wayland
 import Quickshell.Services.Mpris
@@ -248,34 +249,96 @@ PanelWindow {
             Item {
                 id: systemPage
 
-                Column {
-                    anchors.centerIn: parent
-                    spacing: 10
+                readonly property var resourceEntries: {
+                    const list = [
+                        {
+                            "icon": "󰻠",
+                            "label": "CPU",
+                            "accent": Colors.systemCpuColor,
+                            "percent": SystemInfo.cpuPercent,
+                            "valueText": "",
+                            "history": SystemInfo.cpuHistory
+                        },
+                        {
+                            "icon": "󰍛",
+                            "label": "Memory",
+                            "accent": Colors.systemMemColor,
+                            "percent": SystemInfo.memPercent,
+                            "valueText": SystemInfo.memUsedGiB.toFixed(1) + " / " + SystemInfo.memTotalGiB.toFixed(1) + " GiB",
+                            "history": SystemInfo.memHistory
+                        }
+                    ];
+                    if (SystemInfo.swapPresent)
+                        list.push({
+                            "icon": "󰓡",
+                            "label": "Swap",
+                            "accent": Colors.systemSwapColor,
+                            "percent": SystemInfo.swapPercent,
+                            "valueText": "",
+                            "history": SystemInfo.swapHistory
+                        });
 
-                    Text {
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        text: "󰍛"
-                        color: Colors.foreground
-                        opacity: 0.7
+                    list.push({
+                        "icon": "󰋊",
+                        "label": "Disk",
+                        "accent": Colors.systemDiskColor,
+                        "percent": SystemInfo.diskPercent,
+                        "valueText": SystemInfo.diskUsedGiB.toFixed(0) + " / " + SystemInfo.diskTotalGiB.toFixed(0) + " GiB",
+                        "history": SystemInfo.diskHistory
+                    });
+                    if (SystemInfo.gpuAvailable)
+                        list.push({
+                            "icon": "󰻠",
+                            "label": "GPU",
+                            "accent": Colors.systemGpuColor,
+                            "percent": SystemInfo.gpuPercent,
+                            "valueText": SystemInfo.gpuMemTotalGiB > 0 ? SystemInfo.gpuMemUsedGiB.toFixed(1) + " / " + SystemInfo.gpuMemTotalGiB.toFixed(1) + " GiB" : "",
+                            "history": SystemInfo.gpuHistory
+                        });
 
-                        font {
-                            pixelSize: 48
-                            family: "CaskaydiaCove Nerd Font"
+                    return list;
+                }
+
+                RowLayout {
+                    id: pageLayout
+
+                    anchors.fill: parent
+                    anchors.margins: 40
+                    anchors.topMargin: 32
+                    spacing: 24
+
+                    ColumnLayout {
+                        id: widgetStack
+
+                        Layout.fillHeight: true
+                        Layout.preferredWidth: 300
+                        spacing: 20
+
+                        Repeater {
+                            model: systemPage.resourceEntries
+
+                            delegate: ResourceWidget {
+                                id: tile
+
+                                required property var modelData
+
+                                Layout.fillWidth: true
+                                Layout.fillHeight: true
+                                icon: tile.modelData.icon
+                                label: tile.modelData.label
+                                accent: tile.modelData.accent
+                                percent: tile.modelData.percent
+                                valueText: tile.modelData.valueText
+                                history: tile.modelData.history
+                            }
+
                         }
 
                     }
 
-                    Text {
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        text: "System page - coming soon"
-                        color: Colors.foreground
-                        opacity: 0.6
-
-                        font {
-                            pixelSize: 14
-                            family: "CaskaydiaCove Nerd Font"
-                        }
-
+                    ProcessCard {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
                     }
 
                 }
