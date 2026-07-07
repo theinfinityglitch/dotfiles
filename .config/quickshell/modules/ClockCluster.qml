@@ -85,7 +85,7 @@ Item {
         "accent": Colors.networkColor,
         "label": !NetworkInfo.available ? "Disconnected" : (NetworkInfo.connectionName || NetworkInfo.ifname) + (NetworkInfo.isWifi ? " · " + NetworkInfo.signalPercent + "%" : "") + " · ↓" + NetworkInfo.formatSpeed(NetworkInfo.downKBps) + " ↑" + NetworkInfo.formatSpeed(NetworkInfo.upKBps),
         "onActivated": function() {
-            Quickshell.execDetached(["kitty", "-e", "nmtui"]);
+            OverlaySettings.openScreen("network");
         }
     }, {
         "icon": root.profileIcon(PowerProfiles.profile),

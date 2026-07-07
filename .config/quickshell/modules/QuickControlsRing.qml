@@ -36,7 +36,6 @@ Item {
                 scale: 0
                 transformOrigin: Item.Center
                 state: root.open ? "open" : "closed"
-
                 states: [
                     State {
                         name: "closed"
@@ -57,7 +56,6 @@ Item {
 
                     }
                 ]
-
                 transitions: [
                     Transition {
                         from: "closed"
@@ -92,6 +90,8 @@ Item {
                 ]
 
                 QuickDial {
+                    id: quickDial
+
                     diameter: root.dialDiameter
                     ringThickness: root.dialThickness
                     icon: slot.entry.icon
@@ -102,9 +102,11 @@ Item {
                     muted: slot.entry.muted !== undefined ? slot.entry.muted : false
                     label: slot.entry.label !== undefined ? slot.entry.label : ""
                     onActivated: {
-                        if (slot.entry.onActivated)
+                        if (slot.entry.onActivated) {
+                            const pos = quickDial.mapToItem(null, quickDial.width / 2, quickDial.height / 2);
+                            OverlaySettings.setOrigin(pos.x, pos.y);
                             slot.entry.onActivated();
-
+                        }
                     }
                     onScrolledUp: {
                         if (slot.entry.onScrolledUp)

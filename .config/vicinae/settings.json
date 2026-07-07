@@ -32,7 +32,6 @@
       }
    },
    "favorites": [
-      "@theinfinityglitch/notification-center:notifications",
       "@theinfinityglitch/power-profiles:switch-profile",
       "@theinfinityglitch/power-manager:power-profile",
       "@theinfinityglitch/wallpapers:wallpaper-selector",

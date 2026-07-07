@@ -25,7 +25,10 @@ PanelWindow {
         id: hideTimer
 
         interval: root.fadeDuration
-        onTriggered: OverlayPages.reset()
+        onTriggered: {
+            OverlayPages.reset();
+            OverlaySettings.close();
+        }
     }
 
     onMenuOpenChanged: {
@@ -49,7 +52,9 @@ PanelWindow {
     Shortcut {
         sequence: "Escape"
         onActivated: {
-            if (OverlayPages.currentIndex !== 0)
+            if (OverlaySettings.open)
+                OverlaySettings.close();
+            else if (OverlayPages.currentIndex !== 0)
                 OverlayPages.goToIndex(0);
             else
                 root.closeMenu();
@@ -58,12 +63,20 @@ PanelWindow {
 
     Shortcut {
         sequence: "Left"
-        onActivated: OverlayPages.previous()
+        onActivated: {
+            if (!OverlaySettings.open)
+                OverlayPages.previous();
+
+        }
     }
 
     Shortcut {
         sequence: "Right"
-        onActivated: OverlayPages.next()
+        onActivated: {
+            if (!OverlaySettings.open)
+                OverlayPages.next();
+
+        }
     }
 
     WlrLayershell.namespace: "quickshell:slim_bar"
@@ -105,6 +118,12 @@ PanelWindow {
             anchors.fill: parent
             onClicked: root.closeMenu()
             onWheel: (wheel) => {
+                if (OverlaySettings.open)
+                    return;
+
+                if (wheel.buttons !== 0)
+                    return;
+
                 const isPreciseScroll = wheel.pixelDelta.x !== 0 || wheel.pixelDelta.y !== 0;
                 if (isPreciseScroll)
                     return;
@@ -121,7 +140,7 @@ PanelWindow {
 
             anchors.fill: parent
             anchors.bottomMargin: OverlayPages.count > 1 ? 32 : 0
-            interactive: true
+            interactive: !OverlaySettings.open
             background: Item {
             }
 
@@ -274,7 +293,7 @@ PanelWindow {
                 bottomMargin: 16
             }
             spacing: 8
-            visible: OverlayPages.count > 1
+            visible: OverlayPages.count > 1 && !OverlaySettings.open
 
             Repeater {
                 model: OverlayPages.count
@@ -309,6 +328,123 @@ PanelWindow {
                         anchors.margins: -6
                         cursorShape: Qt.PointingHandCursor
                         onClicked: OverlayPages.goToIndex(dot.index)
+                    }
+
+                }
+
+            }
+
+        }
+
+        Item {
+            id: settingsHost
+
+            anchors.fill: parent
+            visible: scrim.opacity > 0
+
+            Rectangle {
+                id: scrim
+
+                anchors.fill: parent
+                color: Colors.backdrop
+                opacity: OverlaySettings.open ? 1 : 0
+
+                Behavior on opacity {
+                    NumberAnimation {
+                        duration: 180
+                        easing.type: Easing.OutCubic
+                    }
+
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: OverlaySettings.close()
+                }
+
+            }
+
+            Rectangle {
+                id: settingsCard
+
+                width: 960
+                height: 540
+                anchors.centerIn: parent
+                radius: 16
+                color: Colors.background
+                border.width: 1
+                border.color: Colors.backgroundLight
+                opacity: OverlaySettings.open ? 1 : 0
+                visible: opacity > 0
+
+                Behavior on opacity {
+                    NumberAnimation {
+                        duration: 180
+                        easing.type: Easing.OutCubic
+                    }
+
+                }
+
+                transform: Scale {
+                    id: growTransform
+
+                    origin.x: OverlaySettings.originX - settingsCard.x
+                    origin.y: OverlaySettings.originY - settingsCard.y
+                    xScale: OverlaySettings.open ? 1 : 0.05
+                    yScale: OverlaySettings.open ? 1 : 0.05
+
+                    Behavior on xScale {
+                        NumberAnimation {
+                            duration: 220
+                            easing.type: Easing.OutCubic
+                        }
+
+                    }
+
+                    Behavior on yScale {
+                        NumberAnimation {
+                            duration: 220
+                            easing.type: Easing.OutCubic
+                        }
+
+                    }
+
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                }
+
+                Loader {
+                    anchors.fill: parent
+                    active: OverlaySettings.current !== ""
+                    sourceComponent: OverlaySettings.current === "network" ? networkScreenComponent : null
+                }
+
+            }
+
+        }
+
+    }
+
+    Component {
+        id: networkScreenComponent
+
+        SettingsScreen {
+            title: "Network"
+
+            Column {
+                anchors.fill: parent
+                spacing: 10
+
+                Text {
+                    text: "Network settings - coming soon"
+                    color: Colors.foreground
+                    opacity: 0.6
+
+                    font {
+                        pixelSize: 14
+                        family: "CaskaydiaCove Nerd Font"
                     }
 
                 }
