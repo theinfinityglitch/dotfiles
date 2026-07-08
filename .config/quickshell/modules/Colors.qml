@@ -41,6 +41,7 @@ Singleton {
     readonly property color powerPerformanceColor: red
     // Network
     readonly property color networkColor: blue
+    readonly property color bluetoothColor: magenta
     readonly property color networkDisconnectedColor: red
     // Audio
     readonly property color audioColor: orange

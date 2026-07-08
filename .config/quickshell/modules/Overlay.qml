@@ -244,6 +244,23 @@ PanelWindow {
 
                 }
 
+                Item {
+                    id: bluetoothWidgetHost
+
+                    anchors {
+                        top: parent.top
+                        left: parent.left
+                        margins: 10
+                    }
+                    implicitWidth: bluetoothWidget.implicitWidth
+                    implicitHeight: bluetoothWidget.implicitHeight
+
+                    BluetoothBatteryWidget {
+                        id: bluetoothWidget
+                    }
+
+                }
+
             }
 
             Item {
@@ -481,7 +498,7 @@ PanelWindow {
                 Loader {
                     anchors.fill: parent
                     active: OverlaySettings.current !== ""
-                    sourceComponent: OverlaySettings.current === "network" ? networkScreenComponent : null
+                    sourceComponent: root._settingsComponents[OverlaySettings.current] || null
                 }
 
             }
@@ -490,10 +507,23 @@ PanelWindow {
 
     }
 
+    readonly property var _settingsComponents: ({
+        "network": networkScreenComponent,
+        "bluetooth": bluetoothScreenComponent
+    })
+
     Component {
         id: networkScreenComponent
 
         WifiScreen {
+        }
+
+    }
+
+    Component {
+        id: bluetoothScreenComponent
+
+        BluetoothScreen {
         }
 
     }

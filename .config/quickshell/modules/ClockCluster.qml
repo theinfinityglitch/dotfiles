@@ -88,6 +88,16 @@ Item {
             OverlaySettings.openScreen("network");
         }
     }, {
+        "icon": !BluetoothInfo.available ? "󰂲" : (BluetoothInfo.enabled ? "󰂯" : "󰂲"),
+        "mode": "toggle",
+        "active": BluetoothInfo.enabled,
+        "muted": !BluetoothInfo.available,
+        "accent": Colors.bluetoothColor,
+        "label": !BluetoothInfo.available ? "Unavailable" : (BluetoothInfo.enabled ? "Bluetooth on" : "Bluetooth off"),
+        "onActivated": function() {
+            OverlaySettings.openScreen("bluetooth");
+        }
+    }, {
         "icon": root.profileIcon(PowerProfiles.profile),
         "mode": "toggle",
         "active": true,
