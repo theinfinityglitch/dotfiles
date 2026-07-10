@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Directory containing wallpapers
 WALLPAPER_DIR="$HOME/dotfiles/backgrounds"
 CURRENT_WALLPAPER_PATH="$HOME/.current_lock_wallpaper"

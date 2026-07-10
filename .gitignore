@@ -3,3 +3,7 @@ vicinae_extensions
 __pycache__
 .config/nvim/undodir
 .config/nvim/plugins
+
+*.backup
+*.bak
+*~
