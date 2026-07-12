@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, user, ... }:
 {
   programs.vicinae = {
     enable = true;
@@ -38,8 +38,8 @@
     enable = true;
     settings = {
       user = {
-        name = "theinfinityglitch";
-        email = "theinfinityglitch@gmail.com";
+        name = user.fullName;
+        email = user.email;
       };
       "credential \"https://github.com\"" = {
         helper = "!gh auth git-credential";

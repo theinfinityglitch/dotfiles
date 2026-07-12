@@ -1,8 +1,8 @@
-{ config, pkgs, ... }:
+{ config, pkgs, user, ... }:
 
 {
   imports = [
-    ./hardware-configuration.nix
+    /etc/nixos/hardware-configuration.nix
     ./modules/nixos/boot.nix
     ./modules/nixos/hardware.nix
     ./modules/nixos/locale.nix
@@ -10,7 +10,7 @@
     ./modules/nixos/security.nix
   ];
 
-  networking.hostName = "nixos";
+  networking.hostName = user.hostName;
   networking.networkmanager.enable = true;
 
   nixpkgs.config.allowUnfree = true;

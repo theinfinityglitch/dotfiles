@@ -1,5 +1,5 @@
 {
-  description = "NixOS first try";
+  description = "NixOS multi-user dotfiles";
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-26.05";
@@ -10,22 +10,32 @@
     vicinae.url = "github:vicinaehq/vicinae";
   };
 
-  outputs = { self, nixpkgs, home-manager, vicinae, ... }: {
-    nixosConfigurations.nixos-themaster = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      modules = [
-        ./configuration.nix
-        vicinae.nixosModules.default
-        home-manager.nixosModules.home-manager
-        {
-          home-manager = {
-            useGlobalPkgs = true;
-            useUserPackages = true;
-            users.themaster = import ./home.nix;
-            backupFileExtension = "backup";
-          };
-        }
-      ];
+  outputs = { self, nixpkgs, home-manager, vicinae, ... }:
+    let
+      mkSystem = userFile:
+        let
+          user = import userFile;
+        in
+        nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit user; };
+          modules = [
+            ./configuration.nix
+            vicinae.nixosModules.default
+            home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                extraSpecialArgs = { inherit user; };
+                users.${user.username} = import ./home.nix;
+                backupFileExtension = "backup";
+              };
+            }
+          ];
+        };
+    in
+    {
+      nixosConfigurations."nixos-themaster" = mkSystem ./users/themaster.nix;
     };
-  };
 }

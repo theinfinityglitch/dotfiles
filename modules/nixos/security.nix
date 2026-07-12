@@ -1,12 +1,12 @@
-{ pkgs, ... }:
+{ pkgs, user, ... }:
 {
   security.polkit.enable = true;
 
   programs.nix-ld.enable = true;
 
-  users.users."themaster" = {
+  users.users.${user.username} = {
     isNormalUser = true;
-    description = "themaster";
+    description = user.fullName;
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
       tree
