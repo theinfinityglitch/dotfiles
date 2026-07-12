@@ -8,6 +8,7 @@
     ./modules/nixos/locale.nix
     ./modules/nixos/desktop.nix
     ./modules/nixos/security.nix
+    ./modules/nixos/gaming.nix
   ];
 
   networking.hostName = user.hostName;

@@ -4,6 +4,11 @@
   hardware.bluetooth.powerOnBoot = true;
   services.blueman.enable = true;
 
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+  };
+
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
