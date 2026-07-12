@@ -8,6 +8,11 @@
     };
   };
 
+  systemd.user.services.vicinae.Unit = {
+    StartLimitIntervalSec = 30;
+    StartLimitBurst = 10;
+  };
+
   programs.fish.enable = true;
 
   programs.bash = {

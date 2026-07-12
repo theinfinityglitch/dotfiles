@@ -15,6 +15,8 @@
     xwayland.enable = true;
   };
 
+  services.displayManager.ly.enable = true;
+
   programs.hyprlock.enable = true;
   programs.firefox.enable = true;
 

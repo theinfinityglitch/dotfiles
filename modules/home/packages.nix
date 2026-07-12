@@ -20,6 +20,9 @@
     wlogout
     hypridle
     steam-run
+    vscode
+    zed-editor
+    ly
 
     libsForQt5.qt5ct
     kdePackages.qt6ct
