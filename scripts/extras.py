@@ -31,22 +31,6 @@ RND_REPO = "https://github.com/theinfinityglitch/rnd.git"
 
 VICINAE_EXTENSIONS = [
     {
-        "name":   "vicinae-bluetooth",
-        "repo":   "https://github.com/theinfinityglitch/vicinae-bluetooth.git",
-    },
-    {
-        "name":   "vicinae-network-manager",
-        "repo":   "https://github.com/theinfinityglitch/vicinae-network-manager.git",
-    },
-    {
-        "name":   "vicinae-notification-center",
-        "repo":   "https://github.com/theinfinityglitch/vicinae-notification-center.git",
-    },
-    {
-        "name":   "vicinae-power-manager",
-        "repo":   "https://github.com/theinfinityglitch/vicinae-power-manager.git",
-    },
-    {
         "name":   "vicinae-wallpaper-selector",
         "repo":   "https://github.com/theinfinityglitch/vicinae-wallpaper-selector.git",
     },

@@ -15,6 +15,6 @@ require('lazy').setup({
   spec = 'config.plugins',
   change_detection = { notify = false },
   dev = {
-    path = '~/Projects/nvim/',
+    path = '~/.config/nvim/dev_plugins/',
   },
 })

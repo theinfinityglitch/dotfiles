@@ -25,9 +25,9 @@ end
 
 vim.opt.mouse = ''
 vim.opt.termguicolors = true
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
-vim.opt.shiftwidth = 4
+vim.opt.tabstop = 2
+vim.opt.softtabstop = 2
+vim.opt.shiftwidth = 2
 vim.opt.autoindent = true
 vim.opt.smartindent = true
 vim.opt.smarttab = true
@@ -56,3 +56,27 @@ vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.undodir = os.getenv('HOME') .. '/.config/nvim/undodir'
 vim.opt.undofile = true
+
+local tab_settings_group = vim.api.nvim_create_augroup('TabSettings', { clear = true })
+
+vim.api.nvim_create_autocmd('FileType', {
+  group = tab_settings_group,
+  pattern = { 'javascript', 'typescript', 'lua', 'html', 'css' },
+  callback = function()
+    vim.opt_local.expandtab = true
+    vim.opt_local.shiftwidth = 2
+    vim.opt_local.tabstop = 2
+    vim.opt_local.softtabstop = 2
+  end,
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+  group = tab_settings_group,
+  pattern = { 'python', 'rust', 'c', 'cpp', 'cs' },
+  callback = function()
+    vim.opt_local.expandtab = true
+    vim.opt_local.shiftwidth = 4
+    vim.opt_local.tabstop = 4
+    vim.opt_local.softtabstop = 4
+  end,
+})

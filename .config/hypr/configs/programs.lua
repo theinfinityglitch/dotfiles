@@ -5,7 +5,7 @@
 local programs = {}
 
 programs.terminal = 'kitty'
-programs.fileManager = 'nautilus'
+programs.fileManager = 'dolphin'
 programs.menu = 'vicinae'
 programs.colorPicker = 'hyprpicker'
 programs.browser = 'firefox'
@@ -15,6 +15,7 @@ programs.calculator = 'kcalc'
 -- B -> Blur back
 
 programs.window_settings = {
+  ['firefox'] = { 'F' },
   ['org.pulseaudio.pavucontrol'] = { 'F' },
   ['org.gnome.Nautilus'] = { 'F' },
   ['org.kde.dolphin'] = { 'F' },

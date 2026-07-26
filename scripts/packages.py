@@ -109,7 +109,6 @@ AUR_PACKAGES = [
     "qt5ct-kde",
     "qt6ct-kde",
     "vesktop-bin",
-    "waybar-git",
     "netcoredbg-bin",
     "zls-bin",
     "quickshell-git",

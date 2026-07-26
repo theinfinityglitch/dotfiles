@@ -1,0 +1,8 @@
+[submodule ".config/nvim/dev_plugins/lualine.nvim"]
+	path = .config/nvim/dev_plugins/lualine.nvim
+	url = https://github.com/theinfinityglitch/lualine.nvim
+	branch = forked
+[submodule ".config/nvim/dev_plugins/neo-explorer.nvim"]
+	path = .config/nvim/dev_plugins/neo-explorer.nvim
+	url = https://github.com/theinfinityglitch/neo-explorer.nvim
+	branch = main

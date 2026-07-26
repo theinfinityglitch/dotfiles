@@ -38,8 +38,6 @@ def symlink_map(dotfiles: Path, home: Path) -> list[tuple[Path, Path]]:
     return [
         # ~/.config entries
         (dotfiles / ".config" / "hypr", config / "hypr"),
-        (dotfiles / ".config" / "waybar", config / "waybar"),
-        (dotfiles / ".config" / "rnd", config / "rnd"),
         (dotfiles / ".config" / "kitty", config / "kitty"),
         (dotfiles / ".config" / "fastfetch", config / "fastfetch"),
         (dotfiles / ".config" / "vicinae", config / "vicinae"),

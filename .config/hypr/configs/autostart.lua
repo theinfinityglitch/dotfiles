@@ -9,6 +9,9 @@ hl.on('hyprland.start', function()
   hl.exec_cmd(
     'sleep 1 && killall -e xdg-desktop-portal-hyprland && killall -e xdg-desktop-portal-wlr && killall xdg-desktop-portal && /usr/lib/xdg-desktop-portal-hyprland & sleep 2 && /usr/lib/xdg-desktop-portal &'
   )
+  hl.exec_cmd('gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"')
+  hl.exec_cmd('gsettings set org.gnome.desktop.interface gtk-theme "Adwaita-dark"')
+  hl.exec_cmd('gsettings set org.gnome.desktop.wm.preferences button-layout :')
   hl.exec_cmd('awww-daemon')
   hl.exec_cmd('vicinae server --open')
   hl.exec_cmd('quickshell')
