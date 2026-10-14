@@ -18,6 +18,7 @@ return {
         xml = { 'xmlstarlet_format' },
         cpp = { 'clang-format' },
         qml = { 'qmlformat' },
+        cmake = { 'cmake_format' },
       },
       formatters = {
         prettier = {

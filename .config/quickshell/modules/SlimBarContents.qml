@@ -7,7 +7,7 @@ Rectangle {
     property bool hidden: false
 
     color: Colors.backdrop
-    implicitHeight: 5
+    implicitWidth: 5
     opacity: root.hidden ? 0 : 1
 
     Workspaces {
@@ -19,20 +19,16 @@ Rectangle {
             duration: 200
             easing.type: Easing.OutCubic
         }
-
     }
 
     transform: Translate {
-        y: root.hidden ? -root.height : 0
+        x: root.hidden ? -root.width : 0
 
-        Behavior on y {
+        Behavior on x {
             NumberAnimation {
                 duration: 200
                 easing.type: Easing.OutCubic
             }
-
         }
-
     }
-
 }

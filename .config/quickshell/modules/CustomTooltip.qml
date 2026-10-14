@@ -6,11 +6,13 @@ PopupWindow {
 
     required property string text
     required property var anchorParent
+    property string edge: "bottom" // "bottom" or "right"
 
     anchor.item: anchorParent
-    anchor.edges: Edges.Bottom
-    anchor.gravity: Edges.Bottom
-    anchor.margins.top: 16
+    anchor.edges: root.edge === "right" ? Edges.Right : Edges.Bottom
+    anchor.gravity: root.edge === "right" ? Edges.Right : Edges.Bottom
+    anchor.margins.top: root.edge === "bottom" ? 20 : 0
+    anchor.margins.left: root.edge === "right" ? 20 : 0
     implicitWidth: labelText.implicitWidth + 24
     implicitHeight: labelText.implicitHeight + 16
     color: "transparent"
@@ -33,9 +35,6 @@ PopupWindow {
                 pixelSize: 14
                 family: "CaskaydiaCove Nerd Font"
             }
-
         }
-
     }
-
 }

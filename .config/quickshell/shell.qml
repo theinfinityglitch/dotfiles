@@ -9,11 +9,11 @@ ShellRoot {
         id: overlay
     }
 
-    Modules.SlimBar {
-        overlay: overlay
-    }
+    // Modules.SlimBar {
+    //     overlay: overlay
+    // }
 
-    Modules.NotificationPopup {
-    }
+    Modules.NotificationPopup {}
 
+    Modules.LockScreen {}
 }

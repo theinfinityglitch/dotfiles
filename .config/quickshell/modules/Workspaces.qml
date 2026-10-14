@@ -4,33 +4,31 @@ import Quickshell
 Rectangle {
     id: root
 
-    implicitWidth: row.implicitWidth
-    implicitHeight: parent.height
+    implicitWidth: parent.width
+    implicitHeight: column.implicitHeight
     color: "transparent"
 
-    Row {
-        id: row
+    Column {
+        id: column
 
         anchors.centerIn: parent
         spacing: 6
 
         Repeater {
-            model: WorkspaceInfo.count
+            model: WorkspaceInfo.workspaceIds
 
             delegate: Rectangle {
                 id: segment
 
-                required property int index
+                required property var modelData
 
-                readonly property int wsId: index + 1
+                readonly property int wsId: modelData
                 readonly property bool focused: WorkspaceInfo.isFocused(wsId)
-                readonly property bool urgent: WorkspaceInfo.isUrgent(wsId)
-                readonly property bool occupied: WorkspaceInfo.isOccupied(wsId)
 
-                width: focused ? 52 : 26
-                height: 10
+                width: 10
+                height: focused ? 52 : 26
                 radius: 5
-                color: focused ? Colors.workspaceFocussedColor : urgent ? Colors.workspaceUrgentColor : occupied ? Colors.workspaceColor : Colors.workspaceEmptyColor
+                color: focused ? Colors.workspaceFocussedColor : Colors.workspaceColor
 
                 MouseArea {
                     id: mouse
@@ -44,10 +42,11 @@ Rectangle {
                 CustomTooltip {
                     visible: mouse.containsMouse
                     anchorParent: segment
-                    text: "Workspace " + segment.wsId
+                    text: WorkspaceInfo.label(segment.wsId)
+                    edge: "right"
                 }
 
-                Behavior on width {
+                Behavior on height {
                     NumberAnimation {
                         duration: 200
                         easing.type: Easing.OutCubic

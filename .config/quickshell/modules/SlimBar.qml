@@ -7,18 +7,17 @@ PanelWindow {
     required property Overlay overlay
 
     WlrLayershell.namespace: "quickshell:slim_bar"
-    implicitHeight: 18
+    implicitWidth: 18
     color: "transparent"
 
     anchors {
-        top: true
         left: true
-        right: true
+        top: true
+        bottom: true
     }
 
     SlimBarContents {
         anchors.fill: parent
         hidden: root.overlay.menuOpen
     }
-
 }

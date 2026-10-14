@@ -1,0 +1,18 @@
+// Add lines like this to spawn processes at startup.
+// Note that running niri as a session supports xdg-desktop-autostart,
+// which may be more convenient to use.
+// See the binds section below for more spawn examples.
+
+spawn-at-startup "gsettings" "set" "org.gnome.desktop.interface" "color-scheme" "'prefer-dark'"
+spawn-at-startup "gsettings" "set" "org.gnome.desktop.interface" "gtk-theme" "'Adwaita-dark'"
+spawn-at-startup "gsettings" "set" "org.gnome.desktop.wm.preferences" "button-layout" ":"
+spawn-at-startup "awww-daemon"
+spawn-at-startup "awww-daemon" "-n" "wallpaper"
+spawn-at-startup "vicinae" "server"
+
+// To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
+// spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
+spawn-sh-at-startup "quickshell"
+spawn-sh-at-startup "noctalia"
+spawn-sh-at-startup "~/.config/niri/scripts/random_wall.sh"
+spawn-sh-at-startup "~/.schedule_reminder.sh"

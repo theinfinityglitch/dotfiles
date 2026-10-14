@@ -19,7 +19,6 @@ PanelWindow {
         ColorAnimation {
             duration: root.fadeDuration
         }
-
     }
 
     Timer {
@@ -35,7 +34,6 @@ PanelWindow {
     onMenuOpenChanged: {
         if (!menuOpen)
             hideTimer.restart();
-
     }
 
     function toggleMenu() {
@@ -67,7 +65,6 @@ PanelWindow {
         onActivated: {
             if (!OverlaySettings.open)
                 OverlayPages.previous();
-
         }
     }
 
@@ -76,20 +73,25 @@ PanelWindow {
         onActivated: {
             if (!OverlaySettings.open)
                 OverlayPages.next();
-
         }
     }
 
-    WlrLayershell.namespace: "quickshell:slim_bar"
+    WlrLayershell.namespace: "quickshell:overlay"
     WlrLayershell.layer: WlrLayer.Overlay
     WlrLayershell.keyboardFocus: root.menuOpen ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None
     exclusiveZone: -1
 
     IpcHandler {
         target: "overlay"
-        function toggle(): void { root.toggleMenu(); }
-        function open(): void { root.openMenu(); }
-        function close(): void { root.closeMenu(); }
+        function toggle(): void {
+            root.toggleMenu();
+        }
+        function open(): void {
+            root.openMenu();
+        }
+        function close(): void {
+            root.closeMenu();
+        }
     }
 
     anchors {
@@ -110,7 +112,6 @@ PanelWindow {
                 duration: root.fadeDuration
                 easing.type: Easing.OutCubic
             }
-
         }
 
         MouseArea {
@@ -118,7 +119,7 @@ PanelWindow {
 
             anchors.fill: parent
             onClicked: root.closeMenu()
-            onWheel: (wheel) => {
+            onWheel: wheel => {
                 if (OverlaySettings.open)
                     return;
 
@@ -142,8 +143,7 @@ PanelWindow {
             anchors.fill: parent
             anchors.bottomMargin: OverlayPages.count > 1 ? 32 : 0
             interactive: !OverlaySettings.open
-            background: Item {
-            }
+            background: Item {}
 
             onCurrentIndexChanged: OverlayPages.goToIndex(currentIndex)
 
@@ -151,7 +151,6 @@ PanelWindow {
                 function onCurrentChanged() {
                     if (pager.currentIndex !== OverlayPages.currentIndex)
                         pager.currentIndex = OverlayPages.currentIndex;
-
                 }
 
                 target: OverlayPages
@@ -178,7 +177,6 @@ PanelWindow {
 
                         parentWindow: root
                     }
-
                 }
 
                 Item {
@@ -193,7 +191,6 @@ PanelWindow {
                         anchors.centerIn: parent
                         open: root.menuOpen
                     }
-
                 }
 
                 Item {
@@ -220,11 +217,8 @@ PanelWindow {
 
                                 player: modelData
                             }
-
                         }
-
                     }
-
                 }
 
                 Item {
@@ -241,7 +235,6 @@ PanelWindow {
                     NotificationCenter {
                         id: notificationCenter
                     }
-
                 }
 
                 Item {
@@ -258,9 +251,7 @@ PanelWindow {
                     BluetoothBatteryWidget {
                         id: bluetoothWidget
                     }
-
                 }
-
             }
 
             Item {
@@ -348,20 +339,15 @@ PanelWindow {
                                 valueText: tile.modelData.valueText
                                 history: tile.modelData.history
                             }
-
                         }
-
                     }
 
                     ProcessCard {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
                     }
-
                 }
-
             }
-
         }
 
         Row {
@@ -393,14 +379,12 @@ PanelWindow {
                             duration: 200
                             easing.type: Easing.OutCubic
                         }
-
                     }
 
                     Behavior on color {
                         ColorAnimation {
                             duration: 200
                         }
-
                     }
 
                     MouseArea {
@@ -409,11 +393,8 @@ PanelWindow {
                         cursorShape: Qt.PointingHandCursor
                         onClicked: OverlayPages.goToIndex(dot.index)
                     }
-
                 }
-
             }
-
         }
 
         Item {
@@ -434,14 +415,12 @@ PanelWindow {
                         duration: 180
                         easing.type: Easing.OutCubic
                     }
-
                 }
 
                 MouseArea {
                     anchors.fill: parent
                     onClicked: OverlaySettings.close()
                 }
-
             }
 
             Rectangle {
@@ -462,7 +441,6 @@ PanelWindow {
                         duration: 180
                         easing.type: Easing.OutCubic
                     }
-
                 }
 
                 transform: Scale {
@@ -478,7 +456,6 @@ PanelWindow {
                             duration: 220
                             easing.type: Easing.OutCubic
                         }
-
                     }
 
                     Behavior on yScale {
@@ -486,9 +463,7 @@ PanelWindow {
                             duration: 220
                             easing.type: Easing.OutCubic
                         }
-
                     }
-
                 }
 
                 MouseArea {
@@ -500,32 +475,24 @@ PanelWindow {
                     active: OverlaySettings.current !== ""
                     sourceComponent: root._settingsComponents[OverlaySettings.current] || null
                 }
-
             }
-
         }
-
     }
 
     readonly property var _settingsComponents: ({
-        "network": networkScreenComponent,
-        "bluetooth": bluetoothScreenComponent
-    })
+            "network": networkScreenComponent,
+            "bluetooth": bluetoothScreenComponent
+        })
 
     Component {
         id: networkScreenComponent
 
-        WifiScreen {
-        }
-
+        WifiScreen {}
     }
 
     Component {
         id: bluetoothScreenComponent
 
-        BluetoothScreen {
-        }
-
+        BluetoothScreen {}
     }
-
 }
