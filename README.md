@@ -8,7 +8,7 @@ This is my restart on ricing my desktop. Now based on Niri with a custom base16 
 
 ### Bas16 palette
 
-![palette](assets/palette.svg)
+![palette](./assets/palette.svg)
 
 ### Some helper colors
 
