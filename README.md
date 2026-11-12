@@ -1,0 +1,24 @@
+# Idk what to put here yet
+
+This is my restart on ricing my desktop. Now based on Niri with a custom base16 color palette.
+
+**Note**: This is my personal configuration. Which means that I use on my own daily desktop.
+
+## Colors
+
+### Bas16 palette
+
+![Palette](assets/palette.svg)
+
+### Some helper colors
+
+| Color | Role |
+| :--- | :--- |
+| Main background | `#05070A` |
+| Secondary background | `#090D12` |
+| Panels / surfaces | `#101720` |
+| Borders | `#19232E` |
+| Main accent | `#00A5FF` |
+| Secondary accent | `#59B9F5` |
+| Main text | `#C5CDD6` |
+| Muted text | `#758393` |

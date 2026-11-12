@@ -1,0 +1,21 @@
+<svg width="400" height="100" viewBox="0 0 400 100">
+  <!-- Normal colors -->
+  <rect x="0"   y="0"  width="50" height="50" fill="#090D12" />
+  <rect x="50"  y="0"  width="50" height="50" fill="#D96C7B" />
+  <rect x="100" y="0"  width="50" height="50" fill="#69B99A" />
+  <rect x="150" y="0"  width="50" height="50" fill="#D8B875" />
+  <rect x="200" y="0"  width="50" height="50" fill="#00A5FF" />
+  <rect x="250" y="0"  width="50" height="50" fill="#B58ACB" />
+  <rect x="300" y="0"  width="50" height="50" fill="#68BBC6" />
+  <rect x="350" y="0"  width="50" height="50" fill="#C5CDD6" />
+
+  <!-- Bright colors -->
+  <rect x="0"   y="50" width="50" height="50" fill="#343D49" />
+  <rect x="50"  y="50" width="50" height="50" fill="#ED8794" />
+  <rect x="100" y="50" width="50" height="50" fill="#86D1B1" />
+  <rect x="150" y="50" width="50" height="50" fill="#E9CC91" />
+  <rect x="200" y="50" width="50" height="50" fill="#59B9F5" />
+  <rect x="250" y="50" width="50" height="50" fill="#CBA5DC" />
+  <rect x="300" y="50" width="50" height="50" fill="#8AD1D8" />
+  <rect x="350" y="50" width="50" height="50" fill="#E8EDF2" />
+</svg>

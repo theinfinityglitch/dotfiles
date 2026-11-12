@@ -1,0 +1,14 @@
+theme = "theinfinityglitch"
+
+[editor]
+line-number = "relative"
+bufferline = "always"
+color-modes = true
+
+[editor.lsp]
+display-progress-messages = true
+
+[editor.indent-guides]
+render = true
+character = "╎" # Some characters that work well: "▏", "┆", "┊", "⸽"
+

@@ -1,0 +1,26 @@
+[language-server.godot]
+command = "ncat" # Use "nc" if you are on Linux/macOS and prefer it
+args = ["127.0.0.1", "6005"] # Use 6008 if you are using Godot 3.x
+
+[[language]]
+name = "gdscript"
+language-servers = ["godot"]
+# Optional: Add formatting if you have 'gdscript-formatter' installed
+formatter = { command = "gdscript-formatter" } 
+# auto-format = true
+
+
+[language-server.roslyn-language-server]
+command = "roslyn-language-server"
+args = [ "--stdio", "--autoLoadProjects" ]
+
+[[language]]
+name = "c-sharp"
+language-servers = [ "roslyn-language-server" ]
+roots = ["*.sln", "*.slnx", "*.csproj", "project.godot"]
+
+[[language]]
+name = "lua"
+auto-format = true
+formatter = { command = "stylua", args = ["-"] }
+
