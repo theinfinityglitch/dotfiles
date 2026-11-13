@@ -1,0 +1,18 @@
+{
+  "reload_style_on_change": true,
+  "layer": "top",
+  "position": "left",
+  "width": 36,
+  "modules-left": [
+    "niri/workspaces"
+  ],
+  "modules-center": [
+    "clock"
+  ],
+  "clock": {
+    "interval": 1,
+    "format": "{:%H\n%M}",
+    "format-alt": "{:%d\n%m\n%y}",
+    "tooltip-format": "<tt><small>{calendar}</small></tt>"
+  }
+}

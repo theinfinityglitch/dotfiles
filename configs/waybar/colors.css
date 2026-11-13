@@ -1,0 +1,29 @@
+/* The colors from the custom base16 palette */
+@define-color palette-black          #090D12;
+@define-color palette-red            #D96C7B;
+@define-color palette-green          #69B99A;
+@define-color palette-yellow         #D8B875;
+@define-color palette-blue           #00A5FF;
+@define-color palette-magenta        #B58ACB;
+@define-color palette-cyan           #68BBC6;
+@define-color palette-white          #C5CDD6;
+
+@define-color palette-bright-black   #343D49;
+@define-color palette-bright-red     #ED8794;
+@define-color palette-bright-green   #86D1B1;
+@define-color palette-bright-yellow  #E9CC91;
+@define-color palette-bright-blue    #59B9F5;
+@define-color palette-bright-magenta #CBA5DC;
+@define-color palette-bright-cyan    #8AD1D8;
+@define-color palette-bright-white   #E8EDF2;
+
+/* Additional black colors */
+@define-color void                   #05070A;
+@define-color obsidian               #090D12;
+@define-color shadow                 #101720;
+@define-color graphite               #19232E;
+@define-color slate                  #343D49;
+
+/* Color tokens */
+@define-color background             @void;
+@define-color foreground             @palette-white;

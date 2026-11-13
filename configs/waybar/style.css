@@ -1,0 +1,36 @@
+@import "./colors.css";
+
+* {
+  font-family: 'Cascadia Mono NF';
+  font-size: 16px;
+  box-shadow: none;
+  border-radius: 0px;
+}
+
+#workspaces button {
+  background: none;
+  border: none;
+  text-shadow: none;
+  box-shadow: none;
+  transition: none;
+  -gtk-icon-shadow: none;
+  -gtk-icon-effect: none;
+}
+
+window#waybar {
+  background-color: @background;
+}
+
+#workspaces button {
+  color: @foreground;
+  padding: 5px 10px;
+}
+
+#workspaces button.active {
+  color: @palette-bright-blue;
+  background-color: @obsidian;
+}
+
+#clock {
+  color: @foreground;
+}
