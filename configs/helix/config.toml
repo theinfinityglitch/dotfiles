@@ -4,6 +4,7 @@ theme = "theinfinityglitch"
 line-number = "relative"
 bufferline = "always"
 color-modes = true
+cursorline = true
 
 [editor.lsp]
 display-progress-messages = true

@@ -1,0 +1,3 @@
+[submodule "configs/zed/themes/my-themes"]
+	path = configs/zed/themes/my-themes
+	url = https://github.com/theinfinityglitch/zed-signal-00-theme.git

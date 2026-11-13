@@ -95,6 +95,7 @@ inherits = "base16_default_dark"
 "ui.selection.primary" = { bg = "graphite" }
 
 "ui.gutter" = { bg = "void" }
+"ui.gutter.selected" = { bg = "obsidian" }
 
 "ui.linenr" = { fg = "slate" }
 "ui.linenr.selected" = { fg = "blue_bright", modifiers = ["bold"] }
