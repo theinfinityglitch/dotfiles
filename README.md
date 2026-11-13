@@ -22,7 +22,7 @@ These are Arch Linux (CachyOS on my case, but wathever) packages
 
 ## Colors
 
-### Bas16 palette
+### Base16 palette
 
 ![palette](./assets/palette.svg)
 
