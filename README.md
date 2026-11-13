@@ -17,6 +17,7 @@ These are Arch Linux (CachyOS on my case, but wathever) packages
 | Browser | `firefox` |
 | Shell | `zsh` |
 | AUR package manager helper | `paru` |
+| Bar | `waybar` |
 
 **Note**: Helix was built from source code using the master branch and Zed was installed from the [official website](https://zed.dev)
 
