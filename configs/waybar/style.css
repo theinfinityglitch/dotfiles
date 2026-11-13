@@ -1,20 +1,12 @@
 @import "./colors.css";
 
 * {
-  font-family: 'Cascadia Mono NF';
+  font-family: "CaskaydiaCove Nerd Font";
   font-size: 16px;
-  box-shadow: none;
-  border-radius: 0px;
-}
-
-#workspaces button {
-  background: none;
-  border: none;
   text-shadow: none;
   box-shadow: none;
-  transition: none;
-  -gtk-icon-shadow: none;
-  -gtk-icon-effect: none;
+  border-radius: 0px;
+  border: none;
 }
 
 window#waybar {
@@ -23,14 +15,52 @@ window#waybar {
 
 #workspaces button {
   color: @foreground;
+  background: none;
+  transition: none;
   padding: 5px 10px;
+  -gtk-icon-shadow: none;
+  -gtk-icon-effect: none;
+}
+
+#workspaces button:hover {
+  color: @palette-blue;
 }
 
 #workspaces button.active {
   color: @palette-bright-blue;
   background-color: @obsidian;
+  font-weight: bold;
 }
 
 #clock {
+  color: @foreground;
+}
+
+#power {
+  color: @foreground;
+  padding: 5px 10px;
+}
+
+#custom-power {
+  color: @foreground;
+  font-size: 18px;
+}
+
+.power-drawer {
+  color: @foreground;
+  font-size: 18px;
+}
+
+#audio {
+  color: @foreground;
+  padding: 5px 8px;
+}
+
+#wireplumber {
+  color: @foreground;
+  font-size: 18px;
+}
+
+.audio-drawer {
   color: @foreground;
 }
