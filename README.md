@@ -4,6 +4,22 @@ This is my restart on ricing my desktop. Now based on Niri with a custom base16 
 
 **Note**: This is my personal configuration. Which means that I use on my own daily desktop.
 
+## Packages
+
+These are Arch Linux (CachyOS on my case, but wathever) packages
+
+| Role | Packages |
+| :--- | :--- |
+| WM | `niri` |
+| Terminal | `kitty` |
+| Fonts | `ttf-cascadia-code`, `ttf-cascadia-code-nerd`, `ttf-cascadia-mono-nerd` |
+| Code editors | `helix`, `zed` |
+| Browser | `firefox` |
+| Shell | `zsh` |
+| AUR package manager helper | `paru` |
+
+**Note**: Helix was built from source code using the master branch and Zed was installed from the [official website](https://zed.dev)
+
 ## Colors
 
 ### Bas16 palette
